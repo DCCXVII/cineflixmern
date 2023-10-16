@@ -1,9 +1,9 @@
 import axios from "axios";
+require('dotenv').config();
 
-const TMDB_BASE_URL = "https://api.themoviedb.org/3";
-export const TMDB_API_KEY =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhM2Q2ZDA1YzM4ZDg3YTExMmZjZjlmOTVhNTM5MzY4MiIsInN1YiI6IjY0OWM1NzkwNzdjMDFmMDEwYzVjOTA4NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.C4kjchVt8K7nAdlSIsL6i2s4Sz30vUYwf1fSvjh_7rI";
-export const API_KEY = "a3d6d05c38d87a112fcf9f95a5393682";
+const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
+export const TMDB_API_KEY = process.env.TMDB_API_KEY;
+export const API_KEY = process.env.API_KEY;
 const tmdbApi = axios.create({
   baseURL: TMDB_BASE_URL,
   timeout: 10000,
