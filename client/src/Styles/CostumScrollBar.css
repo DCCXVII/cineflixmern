@@ -1,0 +1,24 @@
+.custom-scroll-bar {
+  /* Firefox */
+  scrollbar-width: 6px;
+  scrollbar-color: #0e93f1 #ffffff;
+
+  /* Chrome, Edge, and Safari */
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 7px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.623); /* Set the alpha value to 0.5 */
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #875AE6;
+    border-radius: 10px;
+    border: none;
+  }
+}
+
+

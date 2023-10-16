@@ -1,0 +1,6 @@
+- Accounts management : 0Auth.
+- movies, series data : TMDB Api.
+Front-end : React 
+
+
+https://huemint.com/website-2/#palette=202730-1e8bdb-875ae6-ffffff
