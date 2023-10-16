@@ -1,9 +1,4 @@
-
-# Project Title
-
-A brief description of what this project does and who it's for
-
-# CineFlix
+# CineFlix 
 
 CineFlix is a comprehensive open-source application for movies and series. The project is built using the MERN stack, which includes MongoDB, Express, React, and Node.js. Additionally, it leverages React with Vite for an enhanced development and building experience, along with Redux for state management.
 
@@ -13,11 +8,37 @@ To get started with this project on your local machine, you can either fork and 
 
 ### Client-side Configuration
 
+Navigate to the Client directory and set the necessary environment variables in the .env file. Create your TMDB API connection URL and ensure it's set as your TMDB_BASE_URL. Provide the following credentials:
+
+```
+#  --- .env  ---
+TMDB_BASE_URL =
+TMDB_API_KEY = 
+API_KEY =
+```
+
 ```bash
 $ cd Client
 $ npm install (to install client-side dependencies)
 $ npm run dev (to start the client)
 ```
+
+At the vite.config.js here is the following configuration: 
+
+This section configures the development server. The port property sets the port number to 5173. The proxy property is used for setting up a proxy to redirect requests from the client to the specified target, which is http://localhost:4000 in this case. The changeOrigin property ensures that the origin of the host header is changed to the target URL.
+
+```
+ server: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+      },
+    }
+  }
+```
+
 
 ### Server-side Configuration
 
@@ -26,11 +47,12 @@ Navigate to the server directory and set the necessary environment variables in 
 ```
 #  --- .env  ---
 
-MONGODB_URL
-PORT =5000
-TOKEN_SECRET=
-TMDB_BASE_URL=
-TMDB_KEY=
+MODE_ENV = 
+# by default development mode, you can put it on production mode when you finish developing it
+
+MONGO_URL = 
+PORT = 
+TOKEN_KEY = 
 ```
 
 Then, execute the following commands:
@@ -60,7 +82,7 @@ $ npm install (to start the server)
 
 * [React js](#FrontEnd): JavaScript library for building user interfaces, particularly for single-page applications
 * [React Hooks](#FrontEnd): State management tool for React applications
-* [react-router-dom](#FrontEnd): Routing tool for React applications
+* [Tailwind](#FrontEnd): a CSS is an open source CSS framework
 * [axios](#FrontEnd): HTTP client for making API calls
 * [React Toastify](#FrontEnd): Notification management tool for React applications
 * [Swiperjs](#FrontEnd): Library for creating responsive and interactive sliders/carousels
