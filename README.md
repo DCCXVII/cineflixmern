@@ -82,7 +82,7 @@ $ npm install (to start the server)
 
 * [React js](#FrontEnd): JavaScript library for building user interfaces, particularly for single-page applications
 * [React Hooks](#FrontEnd): State management tool for React applications
-* [Tailwind](#FrontEnd): a CSS is an open source CSS framework
+* [TailwindCSS](#FrontEnd): an open source CSS framework
 * [axios](#FrontEnd): HTTP client for making API calls
 * [React Toastify](#FrontEnd): Notification management tool for React applications
 * [Swiperjs](#FrontEnd): Library for creating responsive and interactive sliders/carousels
@@ -90,24 +90,24 @@ $ npm install (to start the server)
 
 ### Backend
 
-* [Node js](#) - Runtime environment for building fast server applications using JavaScript
-* [Express js](#) - Server framework for handling and routing HTTP requests
-* [Mongoose](#) - Object Data Modeling (ODM) library for MongoDB and Node.js
-* [axios](#) - HTTP client for making API calls
-* [jsonwebtoken](#) - Library for generating and verifying JSON Web Tokens
-* [cookie-parser](#) - Middleware for handling cookies in Node.js web applications
-* [cors](#) - Middleware for handling Cross-Origin Resource Sharing (CORS) in Node.js
-* [Dotenv](#) - Module for loading environment variables from a .env file
-* [express-validator](#) - Middleware for request validation in Express applications
-* [nodemon](#) - Utility for automatically restarting the server during development
+* [Node js](#): Runtime environment for building fast server applications using JavaScript
+* [Express js](#): Server framework for handling and routing HTTP requests
+* [Mongoose](#): Object Data Modeling (ODM) library for MongoDB and Node.js
+* [axios](#): HTTP client for making API calls
+* [jsonwebtoken](#): Library for generating and verifying JSON Web Tokens
+* [cookie-parser](#): Middleware for handling cookies in Node.js web applications
+* [cors](#): Middleware for handling Cross-Origin Resource Sharing (CORS) in Node.js
+* [Dotenv](#): Module for loading environment variables from a .env file
+* [express-validator](#): Middleware for request validation in Express applications
+* [nodemon](#): Utility for automatically restarting the server during development
 
 ### Database
 
-* [MongoDB](#) - NoSQL database for storing project data
+* [MongoDB](#): NoSQL database for storing project data
 
 ### API
 
-* [TMDB API](#) - The Movie Database API for accessing information about movies and TV shows
+* [TMDB API](#): The Movie Database API for accessing information about movies and TV shows
 
 ## Demo
 
