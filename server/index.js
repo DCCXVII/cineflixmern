@@ -9,15 +9,19 @@ const cookieParser = require("cookie-parser");
 const userRoutes = require("./Routes/userRoutes");
 const { connectDB } = require("./config/db");
 
-// app.use(
-//   cors({
-//     // origin: ["http://localhost:5173"],
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     credentials: true,
-//   })
-// );
 
+// if you using the front end use this : 
+app.use(
+  cors({
+     origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
+
+//if you are on test (Thunder use this )
 // app.use(cors());
+
+
 app.listen(Port, () => {
   console.log(`server is running ${Port}`);
 });

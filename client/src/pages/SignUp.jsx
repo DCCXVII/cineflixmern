@@ -1,61 +1,82 @@
 import "../index.css";
-import logo from "../assets/logo160.png";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import backgroundImg from "../assets/BACKGROUND.jpg";
-import axios from "axios";
-import { Link, useNavigate ,useParams} from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { HiOutlineIdentification } from "react-icons/hi2";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useRegisterMutation } from "../slices/userApiSlice";
+import { setCredentials } from "../slices/authSlice";
+import { ImSpinner4 } from "react-icons/im";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
   const [showPassword, setShowPassword] = useState(false); // State to track password visibility
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { UserId } = useParams();
+  const [register, { isLoading }] = useRegisterMutation();
+  const { userInfo } = useSelector((state) => state.auth);
 
-
-  const handleError = (err) =>
-    toast.error(err, {
-      position: "bottom-left",
-    });
-  const handleSuccess = (msg) =>
-    toast.success(msg, {
-      position: "bottom-left",
-    });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const { data } = await axios.post(
-        "http://localhost:4000/register",
-        { name, email, password },
-        { withCredentials: true }
-      );
-      console.log(data);
-      const { success, message , UserId} = data;
-      if (success) {
-        handleSuccess(message);
-        setTimeout(() => {
-          navigate(`/user/${UserId}`);
-        }, 1000);
-      } else {
-        handleError(message);
-      }
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/c/home");
     }
-    setName("");
-    setEmail("");
-    setPassword("");
+  }, [navigate, userInfo]);
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const isPasswordValid = password.length >= 8;
+    const isNameValid = /^[a-zA-Z]+(\s[a-zA-Z]+)?$/.test(name);
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (isPasswordValid && isNameValid && isEmailValid) {
+      try {
+        const res = await register({ name, email, password }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        navigate("/c/home");
+      } catch (err) {
+        toast.error(err?.data.message || err.error);
+      }
+    } else {
+      toast.error("Invalid fields");
+    }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const { data } = await axios.post(
+  //       "http://localhost:4000/register",
+  //       { name, email, password },
+  //       { withCredentials: true }
+  //     );
+  //     console.log(data);
+  //     const { success, message , UserId} = data;
+  //     if (success) {
+  //       handleSuccess(message);
+  //       setTimeout(() => {
+  //         navigate(`/user/${UserId}`);
+  //       }, 1000);
+  //     } else {
+  //       handleError(message);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   setName("");
+  //   setEmail("");
+  //   setPassword("");
+  // };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   return (
     <>
       {/* Background Image */}
@@ -75,7 +96,7 @@ const SignUp = () => {
               <HiOutlineIdentification className="mr-1 text-curious-blue-600 text-3xl" />{" "}
               Register
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={submitHandler}>
               <div className="py-4 px-8">
                 <div className="mb-4">
                   <label
@@ -157,6 +178,12 @@ const SignUp = () => {
           </div>
         </div>
         <ToastContainer />
+
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-ebony-clay-600 bg-opacity-40">
+            <ImSpinner4 className="animate-spin text-4xl text-curious-blue-600" />
+          </div>
+        )}
       </div>
     </>
   );

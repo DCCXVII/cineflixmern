@@ -3,7 +3,6 @@ import Home from "./component/home/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import GuestLayout from "./Layouts/GuestLayout";
-import Gallery from "./component/Gallery/Gallery";
 import Movies from "./pages/Movies";
 import Series from "./pages/Series";
 import Movie from "./component/item/Movie";
@@ -12,10 +11,11 @@ import ResetPassword from "./pages/ResetPassword";
 import Actor from "./component/item/Actor";
 import Season from "./component/item/Season";
 import UserLayout from "./Layouts/UserLayout";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
-    path: "",
+    path: "/",
     element: <GuestLayout />,
     children: [
       {
@@ -51,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "home",
         element: <Home />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
       {
         path: "movies",

@@ -1,9 +1,13 @@
 import axios from "axios";
-require('dotenv').config();
 
-const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
-export const TMDB_API_KEY = process.env.TMDB_API_KEY;
-export const API_KEY = process.env.API_KEY;
+
+
+const TMDB_BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
+export const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+export const API_KEY = import.meta.env.VITE_API_KEY;
+
+console.log(TMDB_BASE_URL);
+
 const tmdbApi = axios.create({
   baseURL: TMDB_BASE_URL,
   timeout: 10000,

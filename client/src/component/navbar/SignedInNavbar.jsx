@@ -3,29 +3,18 @@ import axios from "axios"; // Import Axios
 
 import logo from "../../assets/logo160.png";
 import { FiCompass } from "react-icons/fi";
-import { PiFilmStrip, PiTelevision, PiListFill } from "react-icons/pi";
+import { PiFilmStrip, PiTelevision } from "react-icons/pi";
 import { RiPlayList2Fill } from "react-icons/ri";
-import { BsFillPersonFill, BsBookmarkFill } from "react-icons/bs";
+import { BsFillPersonFill } from "react-icons/bs";
 import { MdFavorite, MdLogout } from "react-icons/md";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import landscape2 from "../../assets/landscape2.jpg";
 
-const SignedInNavbar = ({ userName, loginOut, id }) => {
+const SignedInNavbar = ({ userName, loginOut }) => {
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [isListHovered, setIsListHovered] = useState(false);
   const [isProfileHovered, setIsProfileHovered] = useState(false);
   const [itemsWatchlist, setWatchlistItems] = useState([]);
-
-  axios
-    .get("http://localhost:4000/api/user/Mywatchlist/")
-    .then((response) => {
-      const itemsWatchlist = response.data.watchlistItems;
-      setWatchlistItems(itemsWatchlist);
-      console.log(itemsWatchlist); // Log the watchlist items here
-    })
-    .catch((error) => {
-      console.error(error);
-    });
 
   return (
     <>
@@ -34,28 +23,28 @@ const SignedInNavbar = ({ userName, loginOut, id }) => {
         <div className="container mx-auto">
           <div className="w-full flex justify-between items-center py-2 px-8">
             {/* Brand */}
-            <Link to={`/user/${id}`}>
+            <Link to={`/c/home`}>
               <img src={logo} alt="Logo" />
             </Link>
 
             {/* Navigation */}
             <div className="items-center hidden sm:flex space-x-7">
               <a
-                href={`/user/${id}`}
+                href={``}
                 className="text-curious-blue-600 text-2xl hover:text-curious-blue-300 rounded-full no-underline px-4 py-2"
               >
                 <FiCompass />{" "}
               </a>
 
               <a
-                href={`/user/${id}/movies`}
+                href={`/user/movies`}
                 className="text-curious-blue-100 text-2xl hover:text-curious-blue-300 rounded-full no-underline px-4 py-2"
               >
                 <PiFilmStrip />{" "}
               </a>
 
               <a
-                href={`/user/${id}/series`}
+                href={`/user/series`}
                 className="text-curious-blue-100 text-2xl hover:text-curious-blue-300 rounded-full no-underline px-4 py-2"
               >
                 <PiTelevision />
@@ -153,24 +142,24 @@ const SignedInNavbar = ({ userName, loginOut, id }) => {
                 )}
               </div>
 
-              <div
-                href="/login"
-                className="bg-curious-blue-300  text-curious-blue-600 rounded-full text-xl flex justify-center items-center text-center  hover:bg-curious-blue-600 hover:text-white-100 no-underline mx-2 px-2 py-2"
+              <button
+                className="bg-curious-blue-300  text-curious-blue-600 rounded-full text-xl flex justify-center items-center text-center  hover:bg-curious-blue-600 hover:text-white-100 no-underline mx-2 p-2"
                 onMouseEnter={() => setIsProfileHovered(true)}
                 onMouseLeave={() => setIsProfileHovered(false)}
               >
                 <BsFillPersonFill className="" /> {/* {buttonText} */}
                 {isProfileHovered && (
-                  <div className="absolute top-12 right-20  bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-fit  ">
+                  <div className="absolute top-12 right-20 bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-fit h-fit">
                     <ul className="py-2 text-base">
                       <li className="hover:bg-ebony-clay-600 ">
-                        <button className="flex items-center p-2">
-                          {" "}
-                          <BsFillPersonFill className="mr-3 text-xl text-curious-blue-400" />{" "}
-                          <span className="text-white text-base">
-                            Cu/<span>{userName}</span>
-                          </span>
-                        </button>
+                        <Link to="/c/profile">
+                          <button className="flex items-center p-2">
+                            <BsFillPersonFill className="mr-3 text-xl text-curious-blue-400" />
+                            <span className="text-white text-base flex items-center">
+                              Cu/{userName}
+                            </span>
+                          </button>
+                        </Link>
                       </li>
                       <li className="hover:bg-ebony-clay-600 ">
                         <button
@@ -185,7 +174,7 @@ const SignedInNavbar = ({ userName, loginOut, id }) => {
                     </ul>
                   </div>
                 )}
-              </div>
+              </button>
             </div>
           </div>
         </div>
