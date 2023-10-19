@@ -1,4 +1,5 @@
 # CineFlix 
+![CineFlix](./logo192.png)
 
 CineFlix is a comprehensive open-source application for movies and series. The project is built using the MERN stack, which includes MongoDB, Express, React, and Node.js. Additionally, it leverages React with Vite for an enhanced development and building experience, along with Redux for state management.
 
