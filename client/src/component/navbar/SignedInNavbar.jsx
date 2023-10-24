@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // Import Axios
-
 import logo from "../../assets/logo160.png";
 import { FiCompass } from "react-icons/fi";
 import { PiFilmStrip, PiTelevision } from "react-icons/pi";
 import { RiPlayList2Fill } from "react-icons/ri";
 import { BsFillPersonFill } from "react-icons/bs";
+import { ImSpinner4 } from "react-icons/im";
 import { MdFavorite, MdLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
 import landscape2 from "../../assets/landscape2.jpg";
-
+import { useWatchlistQuery } from "../../slices/userApiSlice";
+import { toast } from "react-toastify";
 const SignedInNavbar = ({ userName, loginOut }) => {
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [isListHovered, setIsListHovered] = useState(false);
   const [isProfileHovered, setIsProfileHovered] = useState(false);
   const [itemsWatchlist, setWatchlistItems] = useState([]);
+
+  const { data: watchlistData, isLoading } = useWatchlistQuery();
+
+  useEffect(() => {
+    if (watchlistData) {
+      setWatchlistItems(watchlistData.watchlistItems);
+    }
+  }, [watchlistData]);
 
   return (
     <>
@@ -37,14 +45,14 @@ const SignedInNavbar = ({ userName, loginOut }) => {
               </a>
 
               <a
-                href={`/user/movies`}
+                href={`/c/movies`}
                 className="text-curious-blue-100 text-2xl hover:text-curious-blue-300 rounded-full no-underline px-4 py-2"
               >
                 <PiFilmStrip />{" "}
               </a>
 
               <a
-                href={`/user/series`}
+                href={`/c/series`}
                 className="text-curious-blue-100 text-2xl hover:text-curious-blue-300 rounded-full no-underline px-4 py-2"
               >
                 <PiTelevision />
@@ -68,22 +76,28 @@ const SignedInNavbar = ({ userName, loginOut }) => {
                 <RiPlayList2Fill className="text-lg" />{" "}
                 {isMenuHovered && (
                   <div className="absolute top-12 right-48 bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-72">
+                    {isLoading && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-ebony-clay-600 bg-opacity-40">
+                        <ImSpinner4 className="animate-spin text-4xl text-curious-blue-600" />
+                      </div>
+                    )}
                     <ul className="py-2 text-base">
                       {itemsWatchlist.map((item) => (
                         <li className="hover:bg-ebony-clay-600" key={item._id}>
-                          <button className="flex items-center p-2">
+                          {/* Display watchlist item details */}
+                          <button className="flex justify-items-center p-2">
                             <img
                               src={item.image}
-                              className="w-20 h-14 rounded-xl"
+                              className="w-24 h-16 rounded-xl"
                             />
-                            <div className="ml-3 grid grid-cols-1 justify-items-start">
-                              <span className="title font-sans text-white text-lg font-bold">
-                                {item.title}
+                            <div className="ml-2 grid grid-cols-1 justify-items-start h-16">
+                              <span className="title font-sans text-white text-base font-bold text-left">
+                                {item.name}
                               </span>
                               <span className="date font-normal text-ebony-clay-400 text-base">
                                 Added:{" "}
                                 <span className="font-sans">
-                                  {item.dateAdded}
+                                  {item.dateAdded.slice(0, 10)}
                                 </span>
                               </span>
                             </div>

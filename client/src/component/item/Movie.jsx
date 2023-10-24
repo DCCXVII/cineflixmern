@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BsFillPlayFill, BsThreeDots, BsFillPersonFill } from "react-icons/bs";
-import { PiListPlusFill, PiBookmarkSimpleFill } from "react-icons/pi";
+import { PiListPlusFill } from "react-icons/pi";
+import { GoBookmark, GoBookmarkSlash } from "react-icons/go";
 import { AiFillStar } from "react-icons/ai";
 import { useQuery } from "react-query";
 import {
@@ -8,29 +9,25 @@ import {
   fetchMoreLikeMovies,
   fetchMovieCredits,
 } from "../../Apis/TmdbApi";
-import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import MoreLikeItems from "./MoreLikeItems";
 import "../../Styles/CostumScrollBar.css";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  useAddItemMutation,
+  useRemoveItemMutation,
+} from "../../slices/userApiSlice";
 
 const Movie = () => {
-  
+  const [addItem, { isLoadingadd }] = useAddItemMutation();
+  const [removeItem, { isLoadingrem }] = useRemoveItemMutation();
+
+  const [isInWatchlist, setIsInWatchlist] = useState(false);
+
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const { movieId } = useParams();
-  const { UserId } = useParams();
-
-  const handleError = (err) =>
-    toast.error(err, {
-      position: "bottom-left",
-    });
-  const handleSuccess = (msg) =>
-    toast.success(msg, {
-      position: "bottom-left",
-    });
-
 
   // Fetch movie details using React Query
   const {
@@ -71,37 +68,57 @@ const Movie = () => {
   const TMDB_BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
   const TMDB_BASE_BACK_URL = "https://image.tmdb.org/t/p/original";
 
-
-  
+  // Define the function to add item to watchlist
   const addToWatchlist = async () => {
+
+    
     try {
-      const response = await axios.post(
-        `http://localhost:4000/api/user/watchlist/add`,
-        {
-          name: movieData.title,
-          image: `${TMDB_BASE_IMAGE_URL}${movieData.poster_path}`,
-          dateAdded: new Date(),
-          TMDB_API: movieData.id,
-          Type: "Movie",
-        },
-        { withCredentials: true }
-      );
+      const { data, error } = await addItem({
+        name: movieData.title,
+        image: `${TMDB_BASE_IMAGE_URL}${movieData.poster_path}`,
+        dateAdded: new Date(),
+        TMDB_ID: movieData.id,
+        Type: "Movie",
+      });
       // Handle the response as needed
-  
-      if (response.status === 200) {
-        handleSuccess(response.data.message); // Notify the user
-      } else {
-        handleError(response.data.message);
+      if (data) {
+        if (data.exists) {
+          setIsInWatchlist(true);
+        }
+        // Set the state to indicate that the item is in the watchlist
+        toast.success("Item has been added"); // Notify the user
+      } else if (error) {
+        toast.error("Something went wrong!");
       }
     } catch (error) {
-      console.error(error);
+      toast.error("Something went wrong!");
     }
   };
-  
+
+  const removeFromWatchlist = async () => {
+    try {
+      const { data, error } = await removeFromWatchlist({
+        TMDB_ID: movieData.id,
+      });
+
+      if (data) {
+        if (!data.exists) {
+          setIsInWatchlist(false);
+        } // Set the state to indicate that the item is not in the watchlist
+        toast.success("Item has been removed from watchlist"); // Notify the user
+      } else if (error) {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
+  };
   return (
     <>
       <div className="relative h-screen w-screen font-blinker overflow-x-hidden overflow-y-scroll  custom-scroll-bar bg-curious-blue-950">
         {/* Movie Background Image */}
+        <ToastContainer />
+
         <div className="relative flex justify-center items-center ">
           {movieData.backdrop_path ? (
             <img
@@ -157,7 +174,7 @@ const Movie = () => {
                 {/* <div className="w-fit inline-flex text-lg rounded-xl"></div> */}
                 <BsThreeDots className="text-curious-blue-400 text-lg " />
                 {isMenuHovered && (
-                  <div className="absolute cursor-pointer bottom-9 right-0  bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-32 ">
+                  <div className="absolute cursor-pointer bottom-9 right-0  bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-48 ">
                     <ul className="py-2 text-base">
                       <li className="hover:bg-ebony-clay-600">
                         <button className="flex items-center p-2">
@@ -172,20 +189,35 @@ const Movie = () => {
                       <li className="hover:bg-ebony-clay-600 ">
                         <button
                           className="flex cursor-pointer items-center p-2"
-                          onClick={addToWatchlist}
+                          onClick={
+                            isInWatchlist ? removeFromWatchlist : addToWatchlist
+                          }
+                          // Disable the button when the mutation is in progress
                         >
-                          {" "}
-                          <PiBookmarkSimpleFill className="mr-3 text-lg text-curious-blue-400 " />{" "}
+                          {isLoadingadd && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-ebony-clay-600 bg-opacity-40">
+                              <ImSpinner4 className="animate-spin text-4xl text-curious-blue-600" />
+                            </div>
+                          )}
                           <span className="text-white text-base">
-                            {" "}
-                            Watchlist
+                            {isInWatchlist ? (
+                              <span>
+                                <GoBookmarkSlash className="mr-3 text-lg text-curious-blue-400 " />{" "}
+                                Remove Watchlist
+                              </span> 
+                            ) : (
+                              <span>
+                                <GoBookmark className="mr-3 text-lg text-curious-blue-400 " />{" "}
+                                Add to Watchlist
+                              </span>
+                            )}
                           </span>
                         </button>
                       </li>
                     </ul>
                   </div>
                 )}
-              </ button>
+              </button>
             </div>
           </div>
         </div>
@@ -209,9 +241,9 @@ const Movie = () => {
                       <span className="text-white-200 text-2xl">
                         Genres : {"  "}
                       </span>
-                      {movieData.genres.map((genre,index) => (
+                      {movieData.genres.map((genre, g_index) => (
                         <button
-                          key={genre.index}
+                          key={g_index}
                           className="text-white-50 bg-ebony-clay-400 bg-opacity-30  uppercase text-sm w-fit h-8 flex p-3 justify-center items-center border-none rounded-xl hover:bg-curious-blue-600 hover:text-curious-blue-100"
                         >
                           {genre.name}
@@ -263,10 +295,10 @@ const Movie = () => {
                         {" "}
                         {/* Add max-h-[64px] here */}
                         <div className="flex flex-col space-y-2 items-center justify-items-center h-auto">
-                          {movieCreditsData.map((actor,index) => (
+                          {movieCreditsData.map((actor, index) => (
                             <Link
                               key={index}
-                              to={`/user/${UserId}/actor/${actor.id}`}
+                              to={`/c/actor/${actor.id}`}
                               className="w-full"
                             >
                               <div
@@ -305,7 +337,7 @@ const Movie = () => {
                     {moreLikeMovies.results.map((movie, m_index) => (
                       <Link
                         key={m_index} // Unique key for the Link component
-                        to={`/user/${UserId}/movie/${movie.id}`}
+                        to={`/movie/${movie.id}`}
                       >
                         <MoreLikeItems
                           key={m_index} // Unique key for the MoreLikeItems component

@@ -21,9 +21,9 @@ router.post("/logout", Logout);
 
 router.get("/profile", protect ,  getUserProfile);
 router.put("/profile", protect , updateUserProfile);
+router.get("/watchlist/", protect,getAllItemsInWatchlist);
 router.post("/watchlist/add", protect,addItemToWatchlist); // Use userVerification middleware here
 router.post("/watchlist/remove", protect,removeItemFromWatchlist);
-router.get("/Mywatchlist", protect,getAllItemsInWatchlist);
-router.get("/watchlist/", protect,getWatchlistItemByName);
+router.get("/watchlist/item", protect,getWatchlistItemByName);
 
 module.exports = router;

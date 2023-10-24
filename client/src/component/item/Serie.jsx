@@ -221,7 +221,7 @@ const Serie = () => {
                             {serieData.seasons.map((season) => (
                               <Link
                                 key={season}
-                                to={`/user/${UserId}/season/${season.season_number}`}
+                                to={`/c/${UserId}/season/${season.season_number}`}
                                 className="w-full"
                               >
                                 <button
@@ -268,7 +268,7 @@ const Serie = () => {
                           {serieCreditsData.map((actor) => (
                             <Link
                               key={actor}
-                              to={`/user/${UserId}/actor/${actor.id}`}
+                              to={`/c/${UserId}/actor/${actor.id}`}
                               className="w-full"
                             >
 
@@ -309,7 +309,7 @@ const Serie = () => {
                       {moreLikeseries.results.map((serie) => (
                         <Link
                           key={serie.id}
-                          to={`/user/${UserId}/serie/${serie.id}`}
+                          to={`/c/serie/${serie.id}`}
                         >
                           <MoreLikeItems
                             key={serie.id}

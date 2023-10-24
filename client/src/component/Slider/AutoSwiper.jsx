@@ -80,7 +80,7 @@ const AutoSwiper = ({ items, titre, itemType }) => {
             ref={productContainerRef}
           >
             {items.map((item, index) => (
-              <Link key={index} to={`/user/${UserId}/${itemType}/${item.id}`}>
+              <Link key={index} to={`/c/${UserId}/${itemType}/${item.id}`}>
                 <ItemCard key={index} item={item} />
               </Link>
             ))}

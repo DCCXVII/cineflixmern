@@ -75,7 +75,7 @@ const Home = () => {
         {/* Movies Part */}
 
         <div className="overflow-x-hidden">
-          <Slider items={movies} titre="Trend movies" moreLink="/user/movies" itemType="movie"/>
+          <Slider items={movies} titre="Trend movies" moreLink="/c/movies" itemType="movie"/>
         </div>
       </div>
 
@@ -83,7 +83,7 @@ const Home = () => {
         {/* Series Part */}
 
         <div className="overflow-x-hidden">
-          <Slider items={series} titre="Trend Series" moreLink="/user/series" itemType="serie"/>
+          <Slider items={series} titre="Trend Series" moreLink="/c/series" itemType="serie"/>
         </div>
       </div>
 

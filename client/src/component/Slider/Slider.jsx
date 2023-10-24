@@ -3,6 +3,7 @@ import ItemCard from "../item/ItemCard";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
+
 const Slider = ({ items, titre, moreLink, itemType }) => {
   const productContainerRef = useRef(null);
 
@@ -16,7 +17,6 @@ const Slider = ({ items, titre, moreLink, itemType }) => {
     productContainerRef.current.scrollLeft -= containerWidth;
   };
 
-  const {UserId} = useParams();
 
   return (
     <div className="instru-div py-2 ">
@@ -47,7 +47,7 @@ const Slider = ({ items, titre, moreLink, itemType }) => {
           ref={productContainerRef}
         >
           {items.map((item, index) => (
-            <Link key={index} to={`/user/${UserId}/${itemType}/${item.id}`}>
+            <Link key={index} to={`/c/${itemType}/${item.id}`}>
               <div className="z-20">
                 {" "}
                 <ItemCard item={item} itemType={itemType} />

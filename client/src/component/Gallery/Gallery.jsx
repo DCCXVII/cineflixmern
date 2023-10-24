@@ -38,7 +38,7 @@ const Gallery = ({ AutoSwiperTitle, items, trendingItems, itemType }) => {
                 <div key={index} className="bg-gray-200 h-full">
                   <Link
                     key={index}
-                    to={`/user/${UserId}/${itemType}/${item.id}`} // Include the '/user/:UserId' part
+                    to={`/c/${UserId}/${itemType}/${item.id}`} // Include the '/user/:UserId' part
                   >
                     <ItemCard item={item} itemType={itemType} />
                   </Link>

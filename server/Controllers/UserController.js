@@ -27,12 +27,12 @@ const addItemToWatchlist = asyncHandler(async (req, res) => {
       watchlist = new WatchlistModel({ userId, watchlistItems: [] });
     }
 
-    // Check if an item with the same name already exists in the watchlist
-    const existingItem = watchlist.watchlistItems.find(item => item.TMDB_ID === TMDB_ID);
-    if (existingItem) {
-      return res.status(400).json({ success: false, error: "Item already exists" });
+    // Check if an item with the same TMDB_ID already exists in the watchlist
+    const existingItemIndex = watchlist.watchlistItems.findIndex(item => item.TMDB_ID === TMDB_ID);
+    if (existingItemIndex !== -1) {
+      return res.status(400).json({ success: false, error: "Item already exists", exists:true });
     }
-
+    
     // Create a new watchlist item
     const newItem = {
       name,
@@ -42,18 +42,25 @@ const addItemToWatchlist = asyncHandler(async (req, res) => {
       dateAdded,
       createdAt: Date.now(),
     };
-
+    
     // Add the new item to the watchlist
     watchlist.watchlistItems.push(newItem);
-
+    
     // Save the updated watchlist
     await watchlist.save();
+    
+    res.status(200).json({ success: true, watchlist ,exists:true});
 
-    res.status(200).json({ success: true, watchlist });
+    // Save the updated watchlist
+    
+
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+
+
+
 
 
 /**
@@ -68,7 +75,7 @@ const removeItemFromWatchlist = async (req, res) => {
   const userId = req.user._id;
 
   try {
-    
+
     let watchlist = await WatchlistModel.findOne({ userId });
 
     if (!watchlist) {
@@ -88,7 +95,7 @@ const removeItemFromWatchlist = async (req, res) => {
     watchlist.watchlistItems.splice(itemIndex, 1);
     await watchlist.save();
 
-    res.status(200).json({ message: "Item removed from watchlist", watchlist });
+    res.status(200).json({ message: "Item removed from watchlist", watchlist ,exists:false});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error removing item from watchlist" });
@@ -118,11 +125,11 @@ const getAllItemsInWatchlist = async (req, res) => {
 
 // Get a watchlist item by name
 const getWatchlistItemByName = async (req, res) => {
-  const {TMDB_ID} = req.body;
+  const { TMDB_ID } = req.body;
   const userId = req.user._id;
-  
+
   try {
-    
+
 
     const watchlist = await WatchlistModel.findOne({ userId });
 

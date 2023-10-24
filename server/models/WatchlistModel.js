@@ -8,6 +8,7 @@ const WatchlistItemSchema = new mongoose.Schema({
   TMDB_ID: {
     type: String,
     required: [true, "The id is required"],
+    
   },
   Type: {
     type: String,
