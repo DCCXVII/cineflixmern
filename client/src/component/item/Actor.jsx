@@ -53,7 +53,7 @@ const Actor = () => {
   return (
     <>
       {/* Blue Background */}
-      <div className="relative h-screen w-screen font-blinker overflow-x-hidden overflow-y-scroll  custom-scroll-bar bg-curious-blue-950">
+      <div className="relative h-screen w-screen font-blinker overflow-x-hidden overflow-y-scroll  custom-scroll-bar bg-curious-blue-900">
         {/* Movie Background Image */}
         <div className="relative mt-20 ">
           <table className="relative">

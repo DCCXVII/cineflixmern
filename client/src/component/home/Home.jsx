@@ -71,7 +71,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className=" relative font-blinker bg-curious-blue-950">
+      <div className=" relative font-blinker bg-curious-blue-900">
         {/* Movies Part */}
 
         <div className="overflow-x-hidden">
@@ -79,7 +79,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className=" relative font-blinker bg-curious-blue-950">
+      <div className=" relative font-blinker bg-curious-blue-900">
         {/* Series Part */}
 
         <div className="overflow-x-hidden">
@@ -87,7 +87,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className=" relative font-blinker bg-curious-blue-950">
+      <div className=" relative font-blinker bg-curious-blue-900">
         {/* Actorsa Part */}
 
         <div className="overflow-x-hidden">

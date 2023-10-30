@@ -113,6 +113,8 @@ export const fetchSeries = async (page) => {
     const response = await tmdbApi.get("/tv/popular", {
       params: { page }, // Add the page parameter to the API request
     });
+    console.log(response.data);
+
     return response.data.results;
   } catch (error) {
     console.error("Failed to fetch popular series:", error);
@@ -135,6 +137,8 @@ export const fetchSerieDetails = async (serieId) => {
     const response = await tmdbApi.get(`/tv/${serieId}`, {
       
     });
+    console.log(response.data);
+
     return response.data;
   } catch (error) {
     console.error("Failed to fetch TV series details:", error);

@@ -2,27 +2,16 @@ import React, { useEffect, useState } from "react";
 import logo from "../../assets/logo160.png";
 import { FiCompass } from "react-icons/fi";
 import { PiFilmStrip, PiTelevision } from "react-icons/pi";
-import { RiPlayList2Fill } from "react-icons/ri";
 import { BsFillPersonFill } from "react-icons/bs";
-import { ImSpinner4 } from "react-icons/im";
 import { MdFavorite, MdLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
 import landscape2 from "../../assets/landscape2.jpg";
-import { useWatchlistQuery } from "../../slices/userApiSlice";
-import { toast } from "react-toastify";
 const SignedInNavbar = ({ userName, loginOut }) => {
-  const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [isListHovered, setIsListHovered] = useState(false);
   const [isProfileHovered, setIsProfileHovered] = useState(false);
-  const [itemsWatchlist, setWatchlistItems] = useState([]);
 
-  const { data: watchlistData, isLoading } = useWatchlistQuery();
 
-  useEffect(() => {
-    if (watchlistData) {
-      setWatchlistItems(watchlistData.watchlistItems);
-    }
-  }, [watchlistData]);
+ 
 
   return (
     <>
@@ -57,58 +46,10 @@ const SignedInNavbar = ({ userName, loginOut }) => {
               >
                 <PiTelevision />
               </a>
-
-              {/* <a
-                href="/actor"
-                className="text-curious-blue-100 text-2xl hover:text-curious-blue-300 rounded-full no-underline px-4 py-2"
-              >
-                <FaTheaterMasks />{" "}
-              </a> */}
             </div>
 
             {/* Sign in button */}
             <div className="items-center h-fit  flex">
-              <button
-                className="text-white-100 rounded-xl text-base flex justify-center items-center text-center hover:bg-curious-blue-60 no-underline px-3 py-2 h-fit w-fit"
-                onClick={() => setIsMenuHovered(true)}
-                onMouseLeave={() => setIsMenuHovered(false)}
-              >
-                <RiPlayList2Fill className="text-lg" />{" "}
-                {isMenuHovered && (
-                  <div className="absolute top-12 right-48 bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-72">
-                    {isLoading && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-ebony-clay-600 bg-opacity-40">
-                        <ImSpinner4 className="animate-spin text-4xl text-curious-blue-600" />
-                      </div>
-                    )}
-                    <ul className="py-2 text-base">
-                      {itemsWatchlist.map((item) => (
-                        <li className="hover:bg-ebony-clay-600" key={item._id}>
-                          {/* Display watchlist item details */}
-                          <button className="flex justify-items-center p-2">
-                            <img
-                              src={item.image}
-                              className="w-24 h-16 rounded-xl"
-                            />
-                            <div className="ml-2 grid grid-cols-1 justify-items-start h-16">
-                              <span className="title font-sans text-white text-base font-bold text-left">
-                                {item.name}
-                              </span>
-                              <span className="date font-normal text-ebony-clay-400 text-base">
-                                Added:{" "}
-                                <span className="font-sans">
-                                  {item.dateAdded.slice(0, 10)}
-                                </span>
-                              </span>
-                            </div>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </button>
-
               <div
                 href="/login"
                 className="bg-medium-purple-600 text-white-100 rounded-xl  text-base flex justify-center items-center text-center  hover:bg-curious-blue-60 no-underline mx-4 px-3 py-2 h-fit w-fit"

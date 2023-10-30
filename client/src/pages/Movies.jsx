@@ -64,9 +64,7 @@ const Movies = () => {
 
   return (
     <>
-      <div className="absolute -bottom-20 right-0 left-0 z-30 ">
-        <Filter onFilterChange={setFilterParams} />
-      </div>
+      
       <Gallery
         AutoSwiperTitle="Trending Movies"
         highlight="Movies"

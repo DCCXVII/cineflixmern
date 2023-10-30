@@ -3,6 +3,7 @@ import SignedInNavbar from "../component/navbar/SignedInNavbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation } from "../slices/userApiSlice";
 import { logout } from "../slices/authSlice";
+import Footer from "../component/Footer/Footer";
 
 const UserLayout = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -24,8 +25,9 @@ const UserLayout = () => {
   };
   return (
     <>
-      <SignedInNavbar userName={userInfo.name}  loginOut={logoutHandler} />
+      <SignedInNavbar userName={userInfo.name}  loginOut={logoutHandler}  />
       <Outlet />
+      <Footer/>
     </>
   );
 };

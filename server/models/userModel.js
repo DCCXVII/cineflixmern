@@ -16,10 +16,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, "Your password is required"],
     },
-    createdAt: {
-      type: Date,
-      default: new Date(),
-    },
   },
   {
     timestamps: true,
@@ -40,5 +36,4 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
 };
 
 const User = mongoose.model("User", UserSchema);
-
 module.exports = User;

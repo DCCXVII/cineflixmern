@@ -39,7 +39,7 @@ const Season = () => {
     <>
       <div className="relative h-full font-blinker  m-auto">
         {/* Blue Background */}
-        <div className="absolute inset-0 bg-curious-blue-950"></div>
+        <div className="absolute inset-0 bg-curious-blue-900"></div>
 
         {/* serie Background Image */}
         <div className="relative flex justify-center items-center">

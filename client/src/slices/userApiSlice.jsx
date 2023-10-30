@@ -31,33 +31,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    watchlist: builder.query({
-      query: () => ({
-        url: `${USER_URL}/watchlist`,
-      }),
-    }),
     
-    addItem: builder.mutation({
-      query: (data) => ({
-        url: `${USER_URL}/watchlist/add`,
-        method: "POST",
-        body: data,
-      }),
-    }),
-    removeItem: builder.mutation({
-      query: (data) => ({
-        url: `${USER_URL}watchlist/remove`,
-        method: "POST",
-        body: data,
-      }),
-    }),
-
-    itemName: builder.query({
-      query: (TMDB_ID) => ({
-        url: `${USER_URL}/watchlist/item`,
-        body: { TMDB_ID },
-      }),
-    }),
   }),
 });
 
@@ -66,8 +40,5 @@ export const {
   useLogoutMutation,
   useRegisterMutation,
   useUpdateUserMutation,
-  useWatchlistQuery,
-  useAddItemMutation,
-  useRemoveItemMutation,
-  useItemNameQuery,
+
 } = userApiSlice;

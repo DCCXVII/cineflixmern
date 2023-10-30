@@ -13,7 +13,7 @@ const MoreLikeItems = ({ MoreLikeItemData }) => {
           alt=""
           className="w-20 h-32 rounded-xl"
         />
-        <div className="flex flex-col justify-start justify-items-start max-w-[16rem]">
+        <div className="flex flex-col justify-start justify-items-start w-44">
           <div className="flex flex-col">
             <h1 className="text-white-50 text-base font-bold">
               {MoreLikeItemData.title || MoreLikeItemData.name}{" "}

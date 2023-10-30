@@ -63,7 +63,7 @@ const ItemCard = ({ item, itemType }) => {
     }
 
     return (
-      <div className="item-image w-60 h-5/6 overflow-hidden relative   hover:-translate-y-2 duration-200 ease-in-out">
+      <div className="item-image w-60  h-5/6 overflow-hidden relative  ">
         {" "}
         {renderImage()}
         <div className="item-overlay absolute w-60 h-full inset-0 bg-gradient-to-b from-ebony-clay-950 to-curious-blue-600 opacity-0 group-hover:opacity-40 transition-opacity duration-500 rounded-lg z-10"></div>
