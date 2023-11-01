@@ -1,13 +1,10 @@
-import React, { useState } from "react";
-import { AiFillStar, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { BiBookmark, BiListPlus } from "react-icons/bi";
-import { Link } from "react-router-dom";
-import { API_KEY } from "../../Apis/TmdbApi";
+import React from "react";
+import { AiFillStar } from "react-icons/ai";
+
 const TMDB_BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const ItemCard = ({ item, itemType }) => {
-   const renderRating = () => {
+  const renderRating = () => {
     if (itemType === "actor") {
       return item.vote_average ? (
         <div className="nothing"></div>
@@ -31,13 +28,13 @@ const ItemCard = ({ item, itemType }) => {
       return item.profile_path ? (
         <img
           src={`${TMDB_BASE_IMAGE_URL}${item.profile_path}`}
-          className="item-thumb w-60 h-5/6 object-cover rounded-xl"
+          className="item-thumb w-60 h-[26rem] object-cover rounded-lg"
           alt={item.name}
         />
       ) : (
         <img
           src="/default-avatar.jpg" // Provide the URL to your default avatar image.
-          className="item-thumb w-60 h-5/6 object-cover "
+          className="item-thumb w-60 h-[26rem] object-cover "
           alt={item.name}
         />
       );
@@ -45,7 +42,7 @@ const ItemCard = ({ item, itemType }) => {
       return (
         <img
           src={`${TMDB_BASE_IMAGE_URL}${item.poster_path}`}
-          className="item-thumb w-60 h-5/6 object-cover rounded-xl"
+          className="item-thumb w-60 h-[26rem] object-cover rounded-lg"
           alt={item.title}
         />
       );
@@ -63,29 +60,22 @@ const ItemCard = ({ item, itemType }) => {
     }
 
     return (
-      <div className="item-image w-60  h-5/6 overflow-hidden relative  ">
+      <div className="item-image w-60  h-[26rem] overflow-hidden relative  ">
         {" "}
         {renderImage()}
-        <div className="item-overlay absolute w-60 h-full inset-0 bg-gradient-to-b from-ebony-clay-950 to-curious-blue-600 opacity-0 group-hover:opacity-40 transition-opacity duration-500 rounded-lg z-10"></div>
+        <div className="item-overlay absolute w-60 h-[26rem] inset-0 bg-gradient-to-b from-alabaster-50  to-slate-950 opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-lg z-10"></div>
         {renderRating()}
-        <div className="item-info absolute bottom-0 left-0 right-0 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-10">
-          <div className="text-white-50 ml-3 text-base">
-            {item.release_date}
-          </div>
-          <div className="item-title w-60 h-5/6 text-ebony-clay-950 bg-curious-blue-600 flex items-center justify-center py-1 rounded-b-lg">
-            <div className="inline-flex px-2 text-xl rounded-sm mr-1">
-              <h2 className="text-white-100 text-base">
-                {item.title || item.name}
-              </h2>
-            </div>
-          </div>
+        <div className="item-info relative mx-3 transform translate-y-full group-hover:-translate-y-16 transition-transform duration-300 z-10 w-56 h-fit">
+          <h2 className="text-alabaster-50  text-xl ">
+            {item.title || item.name}
+          </h2>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="item-card flex-none w-60 h-fit transform transition-all duration-500 cursor-pointer group">
+    <div className="item-card flex-none w-60 h-[26rem] transform transition-all duration-500 cursor-pointer group">
       {renderLinkToDetails()}
     </div>
   );

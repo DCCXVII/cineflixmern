@@ -18,10 +18,10 @@ export const favoriteListApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     removeItemFromFavoriteList: builder.mutation({
-      query: (data) => ({
-        url: `${FAVORITELIST_URL}/remove`,
-        method: "DELETE",
-        body: data,
+      query: ({ TMDB_ID }) => ({
+        url: `${FAVORITELIST_URL}/remove/`,
+        method: "POST",
+        body: { TMDB_ID },
       }),
     }),
   }),

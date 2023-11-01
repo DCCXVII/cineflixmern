@@ -1,32 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  favoritelist: [],
-  loading: false,
-  error: null,
+  favoritelistItems: localStorage.getItem("favoritelistItems")
+    ? JSON.parse(localStorage.getItem("favoritelistItems"))
+    : [],
 };
 
 const favoriteListSlice = createSlice({
   name: "favoriteList",
   initialState,
   reducers: {
-    getFavoriteListRequest: (state) => {
-      state.loading = true;
+    addItem: (state, action) => {
+      let buildFavoriteList = {
+        ...action.payload.favorite.FavoritelistItems[0],
+      };
+
+      state.favoritelistItems?.push(buildFavoriteList);
+      localStorage.setItem(
+        "favoritelistItems",
+        JSON.stringify(state.favoritelistItems)
+      );
     },
-    getFavoriteListSuccess: (state, action) => {
-      state.loading = false;
-      state.favoritelist = action.payload;
-    },
-    getFavoriteListFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    addItemToFavoriteList: (state, action) => {
-      state.favoritelist.push(action.payload);
-    },
-    removeItemFromFavoriteList: (state, action) => {
-      state.favoritelist = state.favoritelist.filter(
-        (item) => item._id !== action.payload
+    removeItem: (state, action) => {
+      let filtredItems = state.favoritelistItems = state.favoritelistItems?.filter(
+        (item) => item?.TMDB_ID !== action.payload?.TMDB_ID
+      );
+
+      state.favoritelistItems = filtredItems;
+      localStorage.setItem(
+        "favoritelistItems",
+        JSON.stringify(state.favoritelistItems)
       );
     },
   },
@@ -36,7 +39,7 @@ export const {
   getFavoriteListRequest,
   getFavoriteListSuccess,
   getFavoriteListFailure,
-  addItemToFavoriteList,
+  addItem,
   removeItemFromFavoriteList,
 } = favoriteListSlice.actions;
 

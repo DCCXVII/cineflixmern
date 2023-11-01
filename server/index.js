@@ -17,7 +17,7 @@ app.use(
   })
 );
 
-//if you are on test (Thunder use this )
+// if you are on test (Thunder use this, also see the port to 4000 )
 // app.use(cors());
 
 app.listen(Port, () => {

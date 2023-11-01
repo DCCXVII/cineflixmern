@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ItemCard from "../item/ItemCard";
 import { Link, useParams } from "react-router-dom";
-import BACKGROUND from "../../assets/BACKGROUND.jpg";
 import AutoSwiper from "../Slider/AutoSwiper";
+import { AiOutlineDown } from "react-icons/ai";
 
 const Gallery = ({ AutoSwiperTitle, items, trendingItems, itemType }) => {
   const [displayedItemsCount, setDisplayedItemsCount] = useState(10);
@@ -12,32 +12,28 @@ const Gallery = ({ AutoSwiperTitle, items, trendingItems, itemType }) => {
     setDisplayedItemsCount((prevCount) => prevCount + 10);
   };
 
-
   return (
     <>
-      <div
-        className="relative font-blinker h-screen bg-cover bg-center"
-        style={{ backgroundImage: `url(${BACKGROUND})` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-ebony-clay-950 to-curious-blue-600 opacity-50"></div>
+      <div class="relative font-blinker w-full   bg-slate-950 overflow-x-hidden">
+        <div class="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
+        <div class="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
 
-        <div className="relative pt-32 h-full items-center justify-center">
+        <div className="relative pt-20 h-full items-center justify-center">
           <AutoSwiper
             items={trendingItems}
             titre={AutoSwiperTitle}
             itemType={itemType}
           />
         </div>
-      </div>
-      <div className="relative font-blinker pt-16 bg-curious-blue-900 pb-10">
-        <div className="relative container mx-auto   ">
+
+        <div className="relative container mx-auto  mt-20  ">
+          <div className="relative items-center justify-center justify-items-center text-2xl text-alabaster-50 font-Alber_Sans font-bold my-5">
+            Explore {itemType}s
+          </div>
           <div className="grid grid-cols-5 gap-x-0 gap-y-7">
             {items.slice(0, displayedItemsCount).map((item, index) => (
               <div key={index} className="bg-gray-200 h-full">
-                <Link
-                  key={index}
-                  to={`/c/${itemType}/${item.id}`} 
-                >
+                <Link key={index} to={`/c/${itemType}/${item.id}`}>
                   <ItemCard item={item} itemType={itemType} />
                 </Link>
               </div>
@@ -46,9 +42,9 @@ const Gallery = ({ AutoSwiperTitle, items, trendingItems, itemType }) => {
         </div>
 
         {displayedItemsCount < items.length && (
-          <div className="relative justify-center items-center mx-auto text-center py-6 ">
+          <div className="relative  mx-auto text-center py-6 ">
             <button
-              className="highlight font-blinker p-2 text-white-50 bg-curious-blue-600 uppercase text-sm w-fit h-fit mr-2  justify-center items-center border-none rounded-xl hover:bg-curious-blue-400 hover:text-curious-blue-100"
+              className="bg-alabaster-900 text-alabaster-50 hover:bg-alabaster-950 rounded-lg  text-base justify-center items-center text-center  hover:bg-curious-blue-60 no-underline mx-4 p-2 "
               onClick={handleShowMore}
             >
               Show more

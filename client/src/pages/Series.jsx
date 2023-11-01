@@ -12,7 +12,7 @@ const Series = () => {
     year: "",
     rating: "",
   });
-    const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1);
 
   const {
     data: series,
@@ -25,12 +25,11 @@ const Series = () => {
   });
 
   const {
-    data : trendingSeries,
-    isLoading : isLoadingTrendingSeries,
-    isError : isErrorTrendingSeries,
-    error : errorTrendingSeries,
-  }= useQuery ("trendingSeries", fetchTrendingSeries);
-
+    data: trendingSeries,
+    isLoading: isLoadingTrendingSeries,
+    isError: isErrorTrendingSeries,
+    error: errorTrendingSeries,
+  } = useQuery("trendingSeries", fetchTrendingSeries);
 
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1);
@@ -40,7 +39,7 @@ const Series = () => {
     return <div>Loading...</div>;
   }
 
-  if (isError || isErrorTrendingSeries ) {
+  if (isError || isErrorTrendingSeries) {
     return (
       <div>
         Error: {error?.message}
@@ -60,7 +59,7 @@ const Series = () => {
         AutoSwiperItems={trendingSeries}
         handleLoadMore={loadMore}
         filterParams={filterParams}
-        />
+      />
     </>
   );
 };

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/logo160.png";
-import { FiCompass } from "react-icons/fi";
-import { PiFilmStrip, PiTelevision } from "react-icons/pi";
-import { BsFillPersonFill } from "react-icons/bs";
+import { PiTelevisionSimple } from "react-icons/pi";
+import { BsFillPersonFill, BsStarFill } from "react-icons/bs";
 import { MdFavorite, MdLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
 import landscape2 from "../../assets/landscape2.jpg";
+import { GoHome } from "react-icons/go";
+import { RiMovie2Line } from "react-icons/ri";
 const SignedInNavbar = ({ userName, loginOut }) => {
   const [isListHovered, setIsListHovered] = useState(false);
   const [isProfileHovered, setIsProfileHovered] = useState(false);
@@ -26,39 +27,40 @@ const SignedInNavbar = ({ userName, loginOut }) => {
 
             {/* Navigation */}
             <div className="items-center hidden sm:flex space-x-7">
-              <a
-                href={``}
-                className="text-curious-blue-600 text-2xl hover:text-curious-blue-300 rounded-full no-underline px-4 py-2"
+            <a
+                href="/"
+                className="text-alabaster-50 text-2xl hover:text-alabaster-500 rounded-full no-underline px-4 py-2"
               >
-                <FiCompass />{" "}
+                <GoHome />{" "}
               </a>
 
               <a
-                href={`/c/movies`}
-                className="text-curious-blue-100 text-2xl hover:text-curious-blue-300 rounded-full no-underline px-4 py-2"
+                href="/movies"
+                className="text-alabaster-50 text-2xl hover:text-alabaster-500 rounded-full no-underline px-4 py-2"
               >
-                <PiFilmStrip />{" "}
+                <RiMovie2Line />{" "}
               </a>
 
+              
               <a
-                href={`/c/series`}
-                className="text-curious-blue-100 text-2xl hover:text-curious-blue-300 rounded-full no-underline px-4 py-2"
+                href="/series"
+                className="text-alabaster-50 text-2xl hover:text-alabaster-500 rounded-full no-underline px-4 py-2"
               >
-                <PiTelevision />
+                <PiTelevisionSimple />
               </a>
             </div>
 
             {/* Sign in button */}
             <div className="items-center h-fit  flex">
-              <div
+              <button
                 href="/login"
-                className="bg-medium-purple-600 text-white-100 rounded-xl  text-base flex justify-center items-center text-center  hover:bg-curious-blue-60 no-underline mx-4 px-3 py-2 h-fit w-fit"
+                className="bg-slate-900 text-alabaster-50 hover:bg-alabaster-950 rounded-lg  text-base flex justify-center items-center text-center  hover:bg-curious-blue-60 no-underline mx-4 p-2 "
                 onMouseEnter={() => setIsListHovered(true)}
                 onMouseLeave={() => setIsListHovered(false)} // Use onMouseLeave here
               >
-                <MdFavorite className=" text-lg" />{" "}
+               <BsStarFill className="mr-1 text-sm text-buttercup-600" /> Favorites 
                 {isListHovered && (
-                  <div className="absolute top-12 right-36  bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-72">
+                  <div className="absolute top-14 right-36  bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-72">
                     <ul className="py-2 text-base">
                       <li className="hover:bg-ebony-clay-600">
                         <div className="flex items-center p-2">
@@ -95,16 +97,16 @@ const SignedInNavbar = ({ userName, loginOut }) => {
                     </ul>
                   </div>
                 )}
-              </div>
+              </button>
 
               <button
-                className="bg-curious-blue-300  text-curious-blue-600 rounded-full text-xl flex justify-center items-center text-center  hover:bg-curious-blue-600 hover:text-white-100 no-underline mx-2 p-2"
+                className="bg-alabaster-50  text-alabaster-900 rounded-full text-xl flex justify-center items-center text-center  hover:bg-alabaster-200 hover:text-alabaster-950 no-underline mx-2 p-2"
                 onMouseEnter={() => setIsProfileHovered(true)}
                 onMouseLeave={() => setIsProfileHovered(false)}
               >
                 <BsFillPersonFill className="" /> {/* {buttonText} */}
                 {isProfileHovered && (
-                  <div className="absolute top-12 right-20 bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-fit h-fit">
+                  <div className="absolute top-14 right-20 bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-fit h-fit">
                     <ul className="py-2 text-base">
                       <li className="hover:bg-ebony-clay-600 ">
                         <Link to="/c/profile">

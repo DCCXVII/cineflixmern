@@ -27,7 +27,7 @@ router.post("/logout", Logout);
 router.get("/profile", protect, getUserProfile);
 router.put("/profile", protect, updateUserProfile);
 
-router.get("/favoritelist/", protect, getAllItemsInfavorite);
+router.get("/favoritelist", protect, getAllItemsInfavorite);
 router.post("/favoritelist/add", protect, addItemToFavorite); // Use userVerification middleware here
 router.post("/favoritelist/remove", protect, removeItemFromFavorite);
 router.get("/favoritelist/item", protect, getfavoriteItemByName);
