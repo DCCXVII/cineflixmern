@@ -82,7 +82,7 @@ const Home = () => {
 
         {/* Series Part */}
 
-        <div className=" relative font-blinker overflow-x-hidden">
+        <div className=" relative font-Alber_Sans overflow-x-hidden">
           <Slider
             items={series}
             titre="Trend Series"
@@ -93,7 +93,7 @@ const Home = () => {
 
         {/* Actorsa Part */}
 
-        <div className=" relative font-blinker overflow-x-hidden">
+        <div className=" relative font-Alber_Sans overflow-x-hidden">
           <Slider
             items={person}
             titre="Popular Actors"

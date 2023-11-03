@@ -18,7 +18,7 @@ const SignedInNavbar = ({ userName, loginOut, favoriteList }) => {
   return (
     <>
       {/* bg-ebony-clay-950 */}
-      <div className=" w-screen h-14 font-blinker backdrop-blur-2xl fixed shadow z-50 ">
+      <div className=" w-screen h-14 font-Alber_Sans backdrop-blur-2xl fixed shadow z-50 ">
         <div className="container mx-auto">
           <div className="w-full flex justify-between items-center py-2 px-8">
             {/* Brand */}
@@ -52,9 +52,8 @@ const SignedInNavbar = ({ userName, loginOut, favoriteList }) => {
 
             {/* Sign in button */}
             <div className="items-center h-fit  flex">
-              <button
-                href="/login"
-                className="bg-slate-900 text-alabaster-50 hover:bg-opacity-80 duration-300 rounded-lg  text-base flex justify-center items-center text-center  hover:bg-curious-blue-60 no-underline mx-4 p-2 w-fit h-fit"
+              <div
+                className="bg-slate-900 text-alabaster-50 hover:bg-opacity-80 duration-300 rounded-lg  text-base flex justify-center items-center text-center  hover:bg-curious-blue-60 no-underline mx-4 p-2 w-fit h-fit cursor-pointer"
                 onMouseEnter={() => setIsListHovered(true)}
                 onMouseLeave={() => setIsListHovered(false)} // Use onMouseLeave here
               >
@@ -62,7 +61,7 @@ const SignedInNavbar = ({ userName, loginOut, favoriteList }) => {
                 Favorites
                 {isListHovered && (
                   <div className="absolute top-14 right-36 bg-slate-950 bg-opacity-80 text-curious-blue-100 rounded-lg w-96 ">
-                    <div className="h-72 overflow-y-auto m-2 custom-scroll-bar">
+                    <div className="max-h-72 min-h-[8rem] overflow-y-auto m-2 custom-scroll-bar">
                       <ul className="py-1 custom-scroll-bar">
                         {[...favoriteList]
                           .reverse()
@@ -96,6 +95,8 @@ const SignedInNavbar = ({ userName, loginOut, favoriteList }) => {
                               </div>
                             </li>
                           ))}
+                              {favoriteList.length === 0 && <h1 className="text-center justify-items-center text-2xl">Your list is empty</h1>}
+
                       </ul>
                     </div>
                     <Link
@@ -108,21 +109,21 @@ const SignedInNavbar = ({ userName, loginOut, favoriteList }) => {
                     </Link>
                   </div>
                 )}
-              </button>
+              </div>
 
-              <button
-                className="bg-alabaster-50  text-alabaster-900 rounded-full text-xl flex justify-center items-center text-center  hover:bg-alabaster-200 hover:text-alabaster-950 no-underline mx-2 p-2"
+              <div
+                className="bg-alabaster-50  text-alabaster-900 rounded-full text-xl flex justify-center items-center text-center  hover:bg-alabaster-200 hover:text-alabaster-950 no-underline mx-2 p-2 w-fit h-fit  cursor-pointer"
                 onMouseEnter={() => setIsProfileHovered(true)}
                 onMouseLeave={() => setIsProfileHovered(false)}
               >
                 <BsFillPersonFill className="" /> {/* {buttonText} */}
                 {isProfileHovered && (
-                  <div className="absolute top-14 right-20  bg-slate-950 bg-opacity-80 text-curious-blue-100 rounded-lg w-40">
+                  <div className="absolute top-14 right-20  bg-slate-950 bg-opacity-80 text-curious-blue-100 rounded-lg w-40 font-Alber_Sans">
                     <ul className="py-2 text-base">
                       <li className="hover:bg-ebony-clay-600 ">
                         <Link to="/c/profile">
                           <button className="flex items-center p-2">
-                            <BsFillPersonFill className="mr-3 text-xl text-curious-blue-400" />
+                            <BsFillPersonFill className="mr-3 text-xl text-alabaster-50" />
                             <span className="text-white text-base flex items-center">
                               Cu/{userName}
                             </span>
@@ -131,18 +132,18 @@ const SignedInNavbar = ({ userName, loginOut, favoriteList }) => {
                       </li>
                       <li className="hover:bg-ebony-clay-600 ">
                         <button
-                          className="flex items-center p-2"
+                          className="flex items-center p-2 text-alabaster-50"
                           onClick={loginOut}
                         >
                           {" "}
-                          <MdLogout className="mr-3 text-xl text-curious-blue-400" />{" "}
+                          <MdLogout className="mr-3 text-xl " />{" "}
                           <span className="text-white text-base">Logout</span>
                         </button>
                       </li>
                     </ul>
                   </div>
                 )}
-              </button>
+              </div>
             </div>
           </div>
         </div>

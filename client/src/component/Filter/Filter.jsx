@@ -19,7 +19,7 @@ const Filter = ({ onFilterChange }) => {
   }
 
   return (
-    <div className="flex font-blinker bg-curious-blue-900 items-center justify-between p-3 mx-16 h-full rounded-xl">
+    <div className="flex font-Alber_Sans bg-curious-blue-900 items-center justify-between p-3 mx-16 h-full rounded-xl">
       <div className="flex text-white-100 items-center">
         <select
           className="bg-curious-blue-800 w-72 h-9 p-1 text-base rounded-md"

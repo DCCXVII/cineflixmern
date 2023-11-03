@@ -10,7 +10,7 @@ const Navbar = ({ buttonText }) => {
   return (
     <>
       {/* bg-ebony-clay-950 */}
-      <div className=" w-screen h-14 font-blinker backdrop-blur-2xl fixed shadow z-50 ">
+      <div className=" w-screen h-14 font-Alber_Sans backdrop-blur-2xl fixed shadow z-50 ">
       <div className="container mx-auto">
       <div className="w-full flex justify-between items-center py-2 px-8">
             {/* Brand */}

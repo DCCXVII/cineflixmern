@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { HiOutlineIdentification } from "react-icons/hi2";
 import { ToastContainer, toast } from "react-toastify";
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 import { ImSpinner4 } from "react-icons/im";
 import { useUpdateUserMutation } from "../slices/userApiSlice";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 const Profile = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -53,29 +54,28 @@ const Profile = () => {
 
   return (
     <>
-      {/* Background Image */}
-      <div className="relative font-blinker h-screen bg-cover bg-center bg-curious-blue-400">
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-ebony-clay-950 to-curious-blue-600 opacity-70"></div>
+      <div className="relative  w-full  font-Alber_Sans bg-slate-950 overflow-x-hidden">
+        <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
+        <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
 
         {/* Content */}
         <div className="flex justify-center items-center w-screen h-screen  text-white-100">
-          <div className="relative m-auto w-2/5 bg-white rounded-xl bg-ebony-clay-600 bg-opacity-70">
-            <div className="py-4 px-8 right-0 text-white text-xl border-b flex justify-start items-center ">
-              <HiOutlineIdentification className="mr-1 text-curious-blue-600 text-3xl" />{" "}
-              Update Profile
-            </div>
+          <div className="relative m-auto w-[27rem] bg-white rounded-xl bg-opacity-70">
+            <h1 className="text-4xl font-medium text-alabaster-50 text-center mb-6 font-Alber_Sans">
+              Update your{" "}
+              <span className="text-slate-900 font-bold">Profile</span>
+            </h1>
             <form onSubmit={submitHandler}>
               <div className="py-4 px-8">
                 <div className="mb-4">
                   <label
-                    className="block text-gray-700 text-lg font-bold mb-2"
+                    className="block text-alabaster-50 text-lg font-medium mb-1"
                     htmlFor="Name"
                   >
                     Name
                   </label>
                   <input
-                    className="appearance-none border-none rounded w-full py-2 text-ebony-clay-950 px-3 text-gray-700 cursor-not-allowed "
+                    className="appearance-none font-Alber_Sans border-none rounded-lg w-full p-3 text-black-950"
                     id="Name"
                     type="Name"
                     placeholder="John Doe"
@@ -92,13 +92,13 @@ const Profile = () => {
                 </div>
                 <div className="mb-4">
                   <label
-                    className="block text-gray-700 text-lg font-bold mb-2"
+                    className="block text-alabaster-50 text-lg font-medium mb-1"
                     htmlFor="email"
                   >
                     Email
                   </label>
                   <input
-                    className="appearance-none border-none rounded w-full py-2 text-ebony-clay-950 px-3 text-gray-700"
+                    className="appearance-none font-Alber_Sans border-none rounded-lg w-full p-3 text-black-950"
                     id="email"
                     type="email"
                     value={email}
@@ -108,13 +108,13 @@ const Profile = () => {
                 </div>
                 <div className="mb-1 relative">
                   <label
-                    className="block text-gray-700 text-lg font-bold mb-2"
+                    className="block text-alabaster-50 text-lg font-medium mb-1"
                     htmlFor="password"
                   >
                     Password
                   </label>
                   <input
-                    className="appearance-none border-none rounded w-full py-2 px-3 text-ebony-clay-700 pr-10"
+                    className="appearance-none font-Alber_Sans border-none rounded-lg w-full p-3 text-black-950"
                     id="password"
                     type={showPassword ? "text" : "password"} // Show/hide password based on state
                     placeholder="Password"
@@ -124,20 +124,20 @@ const Profile = () => {
                   {/* Show/hide password toggle button */}
                   <button
                     type="button"
-                    className="absolute text-ebony-clay-950 text-xl inset-y-0 right-0 pt-9 pr-2 flex items-center focus:outline-none"
+                    className="absolute text-ebony-clay-950 text-xl inset-y-0 right-0 pt-9 pr-3 flex items-center focus:outline-none"
                     onClick={togglePasswordVisibility}
                   >
                     {showPassword ? (
-                      <AiOutlineEyeInvisible className="text-gray-500" />
+                      <BsEyeSlash className="text-gray-500" />
                     ) : (
-                      <AiOutlineEye className="text-gray-500" />
+                      <BsEye className="text-gray-500" />
                     )}
                   </button>
                 </div>
 
                 <div className="flex items-center justify-between mt-8">
                   <button
-                    className="bg-curious-blue-700  hover:bg-curious-blue-600  text-white-100 py-2 px-4 rounded-xl"
+                    className="bg-slate-900  hover:bg-opacity-40 duration-300  text-white-100 p-2 rounded-lg w-full"
                     type="submit"
                   >
                     Update

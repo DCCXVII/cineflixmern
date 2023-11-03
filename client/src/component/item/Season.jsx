@@ -38,7 +38,7 @@ const Season = () => {
 
   return (
     <>
-      <div className="relative h-full font-blinker  m-auto">
+      <div className="relative h-full font-Alber_Sans  m-auto">
         {/* Blue Background */}
         <div className="absolute inset-0 bg-curious-blue-900"></div>
 
@@ -56,7 +56,7 @@ const Season = () => {
               className="relative flex justify-center items-center text-center bg-ebony-clay-800 w-3/4 h-[31rem] mt-14 rounded-b-3xl"
             >
               {" "}
-              <span className=" font-blinker text-white-50 text-3xl flex justify-center items-center text-center">
+              <span className=" font-Alber_Sans text-white-50 text-3xl flex justify-center items-center text-center">
                 <TbMovieOff className="text-3xl text-curious-blue-600 mr-5" />{" "}
                 Background not available
               </span>
@@ -115,13 +115,13 @@ const Season = () => {
                               alt="serie Background"
                               className="relative flex flex-col items-center justify-center text-center bg-ebony-clay-800 w-30 h-56 rounded-lg rounded-r-none"
                             >
-                              <span className="font-blinker text-white-50 text-lg">
+                              <span className="font-Alber_Sans text-white-50 text-lg">
                                 Background not available
                               </span>
                             </div>
                           )}
                           <div className="poster-title-wrapper flex flex-col justify-start rounded-lg rounded-l-none text-white-50 bg-ebony-clay-400 bg-opacity-30 w-full h-56 p-6">
-                            <h1 className="poster-title font-blinker text-2xl text-white-50">
+                            <h1 className="poster-title font-Alber_Sans text-2xl text-white-50">
                               <span className="text-white-200 ">
                                 Title : {"  "}
                               </span>{" "}
@@ -141,7 +141,7 @@ const Season = () => {
                               ))}
                             </div>
                             <div className="flex pt-5">
-                              <div className="text-2xl font-blinker text-white-50">
+                              <div className="text-2xl font-Alber_Sans text-white-50">
                                 <h1>
                                   <span className="text-white-200 text-2xl">
                                     First appear : {"  "}

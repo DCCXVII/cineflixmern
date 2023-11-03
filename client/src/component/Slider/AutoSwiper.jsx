@@ -10,7 +10,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const AutoSwiper = ({ items, titre, itemType, sectionWidth }) => {
   return (
-    <div className="instru-div py-4 font-blinker">
+    <div className="instru-div py-4 font-Alber_Sans">
       <section
         className={`prof overflow-hidden w-${sectionWidth} mx-3 p-3 first-letter:my-10  `}
       >

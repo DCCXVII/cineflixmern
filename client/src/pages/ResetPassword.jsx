@@ -32,7 +32,7 @@ const ResetPassword = () => {
     <>
       {/* Background Image */}
       <div
-        className="relative font-blinker h-screen bg-cover bg-center"
+        className="relative font-Alber_Sans h-screen bg-cover bg-center"
         style={{
           backgroundImage: `url(${backgroundImg})`,
         }}

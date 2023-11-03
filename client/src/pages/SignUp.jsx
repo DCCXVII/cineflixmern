@@ -48,32 +48,7 @@ const SignUp = () => {
     }
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const { data } = await axios.post(
-  //       "http://localhost:4000/register",
-  //       { name, email, password },
-  //       { withCredentials: true }
-  //     );
-  //     console.log(data);
-  //     const { success, message , UserId} = data;
-  //     if (success) {
-  //       handleSuccess(message);
-  //       setTimeout(() => {
-  //         navigate(`/user/${UserId}`);
-  //       }, 1000);
-  //     } else {
-  //       handleError(message);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   setName("");
-  //   setEmail("");
-  //   setPassword("");
-  // };
-
+  
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -81,7 +56,7 @@ const SignUp = () => {
   return (
     <>
       {/* Background Image */}
-      <div className="relative  w-full  font-blinker  bg-slate-950 overflow-x-hidden">
+      <div className="relative  w-full  font-Alber_Sans  bg-slate-950 overflow-x-hidden">
         {/* Overlay */}
         <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
         <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>

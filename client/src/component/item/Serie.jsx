@@ -66,7 +66,7 @@ const Serie = () => {
 
   return (
     <>
-      <div className="relative h-full font-blinker overflow-hidden  bg-curious-blue-900 ">
+      <div className="relative h-full font-Alber_Sans overflow-hidden  bg-curious-blue-900 ">
         <table className="w-full mt-20 ">
           <tr className="w-full">
             {/* Left Content */}
@@ -79,7 +79,7 @@ const Serie = () => {
                   />
                   <div className="relative w-full">
                     <div className=" flex flex-col justify-start rounded-lg text-white-50 bg-ebony-clay-400 bg-opacity-20 backdrop-blur-lg   h-96  p-6">
-                      <h1 className="poster-title font-blinker text-xl text-white-50">
+                      <h1 className="poster-title font-Alber_Sans text-xl text-white-50">
                         <span className="text-white-200 ">Title : {"  "}</span>
                         {serieData.name}
                       </h1>
@@ -97,7 +97,7 @@ const Serie = () => {
                         ))}
                       </div>
                       <div className="flex pt-3">
-                        <div className="text-xl font-blinker text-white-50">
+                        <div className="text-xl font-Alber_Sans text-white-50">
                           <h1>
                             {" "}
                             <span className="text-white-200 ">
@@ -142,7 +142,7 @@ const Serie = () => {
                           </div>
 
                           <div className="text-xl pt-3   flex flex-row space-x-5">
-                            {/* <h1 className="text-xl font-blinker text-white-200">
+                            {/* <h1 className="text-xl font-Alber_Sans text-white-200">
                               {" "}
                               Companies : {"  "}
                             </h1> */}

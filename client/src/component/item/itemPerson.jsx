@@ -2,11 +2,13 @@ import React from "react";
 import { AiFillStar } from "react-icons/ai";
 
 const itemPerson = ({ item, pathName }) => {
+  const TMDB_BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+
   return (
     <div className="item-card flex-none w-72 h-fit mr-8 transform transition-all duration-500 cursor-pointer group">
       <div className="item-image w-full h-fit overflow-hidden relative">
         <img
-          src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+          src={`${TMDB_BASE_IMAGE_URL}${item.poster_path}`}
           className="item-thumb w-full h-5/6 object-cover"
           alt={item.title}
         />
