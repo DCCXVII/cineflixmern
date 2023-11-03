@@ -46,14 +46,17 @@ const Home = () => {
   }, []);
 
   return (
-    <div class="relative  w-full   bg-slate-950 overflow-x-hidden">
-      <div class="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
-      <div class="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
-      <div className="relative font-blinker h-96">
-        <div className="relative h-full flex flex-col items-center justify-center mt-24 ">
+    <div className="relative  w-full   bg-slate-950 overflow-x-hidden">
+      <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
+      <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
+      <div className="relative">
+        <div className="relative font-Alber_Sans h-full flex flex-col items-center justify-center mt-24 ">
           <div className="w-[26rem] my-10 items-center justify-items-center">
-            <h1 className="text-6xl font-medium text-white-50 text-center">
-              Movies & Series, <span className=""> Unlimited way.</span>
+            <h1 className="text-6xl font-medium text-alabaster-50 text-center">
+              Movies & Series,{" "}
+              <span className="text-center  from-slate-950 via-slate-950 to-alabaster-50 bg-gradient-to-r bg-clip-text fill-none">
+                Unlimited way.
+              </span>
             </h1>
           </div>
           <SearchBar />
@@ -68,7 +71,7 @@ const Home = () => {
       <div className=" flex flex-col ">
         {/* Movies Part */}
 
-        <div className=" relative font-blinker overflow-x-hidden ">
+        <div className=" relative  overflow-x-hidden ">
           <Slider
             items={movies}
             titre="Trend movies"

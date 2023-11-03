@@ -7,7 +7,7 @@ import { BiRightArrowAlt } from "react-icons/bi";
 
 const Slider = ({ items, titre, moreLink, itemType }) => {
   return (
-    <div className="instru-div py-2 ">
+    <div className="instru-div py-2 font-Alber_Sans">
       <section className=" relative overflow-hidden  mx-10 my-10 p-2 h-full">
         <div className="flex justify-between items-center">
           <div className="relative font-Alber_Sans w-fit h-fit justify-center text-2xl font-bold  flex items-center rounded-lg  text-white-50  mt-3 mb-4  px-2 py-1">

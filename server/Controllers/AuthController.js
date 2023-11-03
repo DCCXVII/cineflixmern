@@ -15,7 +15,6 @@ const Login = asyncHandler(async (req, res) => {
 
   if (user && (await user.matchPassword(password))) {
     createSecretToken(res, user._id);
-    console.log("rah ana how dak lconsole"+req.cookies.jwt);
     res.status(200).json({
       _id: user._id,
       name: user.name,

@@ -19,17 +19,18 @@ const Season = () => {
     isLoading: isLoadingEpisodesDetails,
     isError: isErrorEpisodesDetails,
     error: errorEpisodesDetails,
-  } = useQuery(["EpisodesDetails", {serieId, seasonId}], () => fetchMoreLikeSeries(serieId,seasonId));
+  } = useQuery(["EpisodesDetails", { serieId, seasonId }], () =>
+    fetchMoreLikeSeries(serieId, seasonId)
+  );
 
   if (isLoadingEpisodesDetails) {
     return <div>Loading...</div>;
   }
 
-  if (isErrorEpisodesDetails ) {
-    return <div>Error: { errorEpisodesDetails?.message}</div>;
+  if (isErrorEpisodesDetails) {
+    return <div>Error: {errorEpisodesDetails?.message}</div>;
   }
 
-  const percentage = (serieData.vote_average * 10).toFixed(2);
   const percentage_text = serieData.vote_average.toFixed(2);
 
   const TMDB_BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
@@ -178,7 +179,7 @@ const Season = () => {
                       </div>
                     </tr>
                     <tr>
-                    <div className="seasons-section relative flex flex-col justify-start mt-5  w-[54rem] h-22 min-h[22rem]   rounded-lg p-6 text-white-50 bg-ebony-clay-400 bg-opacity-30 overflow-x-auto">
+                      <div className="seasons-section relative flex flex-col justify-start mt-5  w-[54rem] h-22 min-h[22rem]   rounded-lg p-6 text-white-50 bg-ebony-clay-400 bg-opacity-30 overflow-x-auto">
                         {/* Add the code to display seasons here */}
                         <h1 className="font-bold text-xl text-curious-blue-400 mb-3">
                           Episodes
@@ -191,7 +192,7 @@ const Season = () => {
                                 key={Episode.id}
                                 className="w-fit flex justify-center items-center p-3 h-fit rounded-lg text-white-50 bg-ebony-clay-500 bg-opacity-30 shadow-2xl shadow-ebony-clay-950"
                               >
-                                <ItemCard item={Episode}/>
+                                <ItemCard item={Episode} />
                               </button>
                             ))}
                           </div>
@@ -245,9 +246,6 @@ const Season = () => {
                   </tr>
                 </table>
               </td>
-
-              {/* Right Sidebar */}
-              
             </tr>
           </tbody>
         </table>

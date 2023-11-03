@@ -1,12 +1,8 @@
 import axios from "axios";
 
-
-
 const TMDB_BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 export const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 export const API_KEY = import.meta.env.VITE_API_KEY;
-
-console.log(TMDB_BASE_URL);
 
 const tmdbApi = axios.create({
   baseURL: TMDB_BASE_URL,
@@ -56,10 +52,9 @@ export const fetchMovieDetails = async (movieId) => {
   try {
     const response = await tmdbApi.get(`/movie/${movieId}`, {
       params: {
-        append_to_response: 'videos'
-      }
+        append_to_response: "videos",
+      },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch movie details:", error);
@@ -70,7 +65,9 @@ export const fetchMovieDetails = async (movieId) => {
 // ok
 export const fetchMovieCredits = async (movieId) => {
   try {
-    const response = await tmdbApi.get(`/movie/${movieId}/credits?language=en-US`);
+    const response = await tmdbApi.get(
+      `/movie/${movieId}/credits?language=en-US`
+    );
     const creditsData = response.data;
 
     // Extract the id, name, and profile path of the actors
@@ -100,7 +97,6 @@ export const fetchFilteredMovies = async (filterParams) => {
         sort_by: "popularity.desc",
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch movies:", error);
@@ -113,7 +109,6 @@ export const fetchSeries = async (page) => {
     const response = await tmdbApi.get("/tv/popular", {
       params: { page }, // Add the page parameter to the API request
     });
-    console.log(response.data);
 
     return response.data.results;
   } catch (error) {
@@ -134,17 +129,14 @@ export const fetchTrendingSeries = async () => {
 
 export const fetchSerieDetails = async (serieId) => {
   try {
-    const response = await tmdbApi.get(`/tv/${serieId}`, {
-      
-    });
-    console.log(response.data);
+    const response = await tmdbApi.get(`/tv/${serieId}`, {});
 
     return response.data;
   } catch (error) {
     console.error("Failed to fetch TV series details:", error);
     throw error;
   }
-}
+};
 
 export const fetchMoreLikeSeries = async (serieId) => {
   try {
@@ -192,7 +184,6 @@ export const fetchFilteredSeries = async (filterParams) => {
       params: { ...defaultParams, ...filterParams },
     });
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch series:", error);
@@ -231,20 +222,16 @@ export const fetchPersonCombinedCredits = async (personId) => {
   }
 };
 
-
 export const fetchEpisodesDetails = async (serieId, seasonId) => {
   try {
     const response = await tmdbApi.get(`/tv/${serieId}/season/${seasonId}`, {
       params: {
-        append_to_response: "images"
-      }
+        append_to_response: "images",
+      },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch episode details:", error);
     throw error;
   }
 };
-
-

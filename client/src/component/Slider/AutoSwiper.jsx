@@ -36,7 +36,7 @@ const AutoSwiper = ({ items, titre, itemType, sectionWidth }) => {
                   } mx-3`}
                 >
                   <Link to={`/c/${itemType}/${item.id}`}>
-                    <ItemCard key={index} item={item} />
+                    <ItemCard key={index} item={item} itemType={itemType} />
                   </Link>
                 </SwiperSlide>
               ))}

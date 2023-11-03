@@ -7,13 +7,14 @@ import { Link } from "react-router-dom";
 import landscape2 from "../../assets/landscape2.jpg";
 import { GoHome } from "react-icons/go";
 import { RiMovie2Line } from "react-icons/ri";
-const SignedInNavbar = ({ userName, loginOut }) => {
+import { useSelector } from "react-redux";
+import { BiRightArrowAlt } from "react-icons/bi";
+import "../../Styles/CostumScrollBar.css";
+
+const SignedInNavbar = ({ userName, loginOut, favoriteList }) => {
   const [isListHovered, setIsListHovered] = useState(false);
   const [isProfileHovered, setIsProfileHovered] = useState(false);
-
-
- 
-
+  const URL_BACKDROP = "https://image.tmdb.org/t/p/original";
   return (
     <>
       {/* bg-ebony-clay-950 */}
@@ -27,23 +28,22 @@ const SignedInNavbar = ({ userName, loginOut }) => {
 
             {/* Navigation */}
             <div className="items-center hidden sm:flex space-x-7">
-            <a
-                href="/"
+              <a
+                href="/c/home"
                 className="text-alabaster-50 text-2xl hover:text-alabaster-500 rounded-full no-underline px-4 py-2"
               >
                 <GoHome />{" "}
               </a>
 
               <a
-                href="/movies"
+                href="/c/movies"
                 className="text-alabaster-50 text-2xl hover:text-alabaster-500 rounded-full no-underline px-4 py-2"
               >
                 <RiMovie2Line />{" "}
               </a>
 
-              
               <a
-                href="/series"
+                href="/c/series"
                 className="text-alabaster-50 text-2xl hover:text-alabaster-500 rounded-full no-underline px-4 py-2"
               >
                 <PiTelevisionSimple />
@@ -54,47 +54,58 @@ const SignedInNavbar = ({ userName, loginOut }) => {
             <div className="items-center h-fit  flex">
               <button
                 href="/login"
-                className="bg-slate-900 text-alabaster-50 hover:bg-alabaster-950 rounded-lg  text-base flex justify-center items-center text-center  hover:bg-curious-blue-60 no-underline mx-4 p-2 "
+                className="bg-slate-900 text-alabaster-50 hover:bg-opacity-80 duration-300 rounded-lg  text-base flex justify-center items-center text-center  hover:bg-curious-blue-60 no-underline mx-4 p-2 w-fit h-fit"
                 onMouseEnter={() => setIsListHovered(true)}
                 onMouseLeave={() => setIsListHovered(false)} // Use onMouseLeave here
               >
-               <BsStarFill className="mr-1 text-sm text-buttercup-600" /> Favorites 
+                <BsStarFill className="mr-1 text-sm text-buttercup-600" />{" "}
+                Favorites
                 {isListHovered && (
-                  <div className="absolute top-14 right-36  bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-72">
-                    <ul className="py-2 text-base">
-                      <li className="hover:bg-ebony-clay-600">
-                        <div className="flex items-center p-2">
-                          <img
-                            src={landscape2}
-                            className="w-20 h-14 rounded-xl"
-                          />
-                          <div className="ml-3 grid grid-cols-1 justify-items-start flex-grow">
-                            <span className="title font-sans text-white text-lg font-bold">
-                              1917
-                            </span>
-                          </div>
-                          <button className="favorited relative rounded-full text-red-700 bg-ebony-clay-200 p-1">
-                            <MdFavorite />
-                          </button>
-                        </div>
-                      </li>
-                      <li className="hover:bg-ebony-clay-600">
-                        <div className="flex items-center p-2">
-                          <img
-                            src={landscape2}
-                            className="w-20 h-14 rounded-xl"
-                          />
-                          <div className="ml-3 grid grid-cols-1 justify-items-start flex-grow">
-                            <span className="title font-sans text-white text-lg font-bold">
-                              1917
-                            </span>
-                          </div>
-                          <button className="favorited relative rounded-full text-red-700 bg-ebony-clay-200 p-1">
-                            <MdFavorite />
-                          </button>
-                        </div>
-                      </li>
-                    </ul>
+                  <div className="absolute top-14 right-36 bg-slate-950 bg-opacity-80 text-curious-blue-100 rounded-lg w-96 ">
+                    <div className="h-72 overflow-y-auto m-2 custom-scroll-bar">
+                      <ul className="py-1 custom-scroll-bar">
+                        {[...favoriteList]
+                          .reverse()
+                          .slice(0, 4)
+                          .map((favorite) => (
+                            <li
+                              key={favorite.id}
+                              className="hover:bg-ebony-clay-600"
+                            >
+                              <div className="flex items-center p-2">
+                                <Link
+                                  to={`/c/${favorite.type}/${favorite.id}`}
+                                  className="flex justify-between space-x-2 items-center"
+                                >
+                                  <img
+                                    src={`${URL_BACKDROP}${favorite.image}`}
+                                    className="w-24 h-16 rounded-lg"
+                                  />
+                                  <div className="ml-2 grid grid-cols-1 ">
+                                    <h1 className="title text-alabaster-50 font-Alber_Sans text-base text-left">
+                                      {favorite.name}
+                                    </h1>
+                                    <h1 className="title text-alabaster-300 font-Alber_Sans text-base text-left">
+                                      <span className="title  font-Alber_Sans text-base text-left">
+                                        type :
+                                      </span>{" "}
+                                      {favorite.type}
+                                    </h1>
+                                  </div>
+                                </Link>
+                              </div>
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
+                    <Link
+                      to="home"
+                      className="flex justify-center items-center"
+                    >
+                      <h1 className="flex flex-row items-center text-center text-sm text-alabaster-50 hover:text-alabaster-300 rounded-lg cursor-pointer m-2 font-Alber_Sans duration-75">
+                        More Favs <BiRightArrowAlt className="ml-1 text-lg" />
+                      </h1>
+                    </Link>
                   </div>
                 )}
               </button>
@@ -106,7 +117,7 @@ const SignedInNavbar = ({ userName, loginOut }) => {
               >
                 <BsFillPersonFill className="" /> {/* {buttonText} */}
                 {isProfileHovered && (
-                  <div className="absolute top-14 right-20 bg-ebony-clay-800 bg-opacity-90 text-curious-blue-100 rounded-lg w-fit h-fit">
+                  <div className="absolute top-14 right-20  bg-slate-950 bg-opacity-80 text-curious-blue-100 rounded-lg w-40">
                     <ul className="py-2 text-base">
                       <li className="hover:bg-ebony-clay-600 ">
                         <Link to="/c/profile">

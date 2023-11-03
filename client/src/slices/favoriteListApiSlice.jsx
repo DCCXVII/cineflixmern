@@ -1,34 +1,37 @@
 import { apiSlice } from "./apiSlice";
 
-const FAVORITELIST_URL = "/api/user/favoritelist";
+const FAVORITE_URL = "/api/user/favorite-list";
 
 export const favoriteListApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getFavoriteList: builder.query({
+    // getFavoriteList: builder.query({
+    //   query: () => `${FAVORITE_URL}`, // adjust the endpoint according to your server setup
+    // }),
+    getAllFavorites: builder.mutation({
       query: () => ({
-        url: `${FAVORITELIST_URL}`,
+        url: `${FAVORITE_URL}`,
         method: "GET",
       }),
     }),
-    addItemToFavoriteList: builder.mutation({
+    addToFavoriteList: builder.mutation({
       query: (data) => ({
-        url: `${FAVORITELIST_URL}/add`,
+        url: `${FAVORITE_URL}/add`,
         method: "POST",
         body: data,
       }),
     }),
-    removeItemFromFavoriteList: builder.mutation({
-      query: ({ TMDB_ID }) => ({
-        url: `${FAVORITELIST_URL}/remove/`,
+    removeFavoriteList: builder.mutation({
+      query: (data) => ({
+        url: `${FAVORITE_URL}/remove`,
         method: "POST",
-        body: { TMDB_ID },
+        body: data,
       }),
     }),
   }),
 });
 
 export const {
-  useGetFavoriteListQuery,
-  useAddItemToFavoriteListMutation,
-  useRemoveItemFromFavoriteListMutation,
+  useGetAllFavoritesMutation,
+  useAddToFavoriteListMutation,
+  useRemoveFavoriteListMutation,
 } = favoriteListApiSlice;

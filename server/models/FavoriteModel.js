@@ -1,16 +1,20 @@
 const mongoose = require("mongoose");
 
-const FavoritelistItemSchema = new mongoose.Schema(
+const FavoriteSchema = new mongoose.Schema(
   {
+    userId: {
+      type: String,
+      required: [true, "The item name is required"],
+    },
     name: {
       type: String,
       required: [true, "The item name is required"],
     },
-    TMDB_ID: {
+    tmdb_id: {
       type: String,
       required: [true, "The id is required"],
     },
-    Type: {
+    type: {
       type: String,
       enum: ["movie", "series", "tv_episode"],
       required: [true, "The type is required"],
@@ -25,11 +29,6 @@ const FavoritelistItemSchema = new mongoose.Schema(
   }
 );
 
-const FavoritelistSchema = new mongoose.Schema({
-  userId: String,
-  FavoritelistItems: [FavoritelistItemSchema],
-});
+const FavoriteModel = mongoose.model("Favorites", FavoriteSchema);
 
-const FavoritelistModel = mongoose.model("Favoritelist", FavoritelistSchema);
-
-module.exports = FavoritelistModel;
+module.exports = FavoriteModel;

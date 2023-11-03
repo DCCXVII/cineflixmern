@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BsFillPersonFill, BsHeart } from "react-icons/bs";
+import { TbHeartPlus } from "react-icons/tb";
 import { AiFillStar } from "react-icons/ai";
 import { useQuery } from "react-query";
 import {
@@ -16,20 +17,23 @@ import SwiperA from "../Slider/SwiperA";
 import Comment from "./Comment";
 import { BiSolidVideos } from "react-icons/bi";
 import { useDispatch } from "react-redux";
-import { addItem } from "../../slices/favoriteListSlice";
 import {
-  useAddItemToFavoriteListMutation,
-  useRemoveItemFromFavoriteListMutation,
+  addFavoriteList,
+  removeFavoriteList,
+} from "../../slices/favoriteListSlice";
+import {
+  useAddToFavoriteListMutation,
+  useRemoveFavoriteListMutation,
 } from "../../slices/favoriteListApiSlice";
 const Movie = () => {
   const { movieId } = useParams();
   const dispatch = useDispatch();
 
   const [addItemToFavoriteList, { isAddLoading }] =
-    useAddItemToFavoriteListMutation();
+    useAddToFavoriteListMutation();
 
   const [removeItemFromFavoriteList, { isRemoveLoading }] =
-    useRemoveItemFromFavoriteListMutation();
+    useRemoveFavoriteListMutation();
 
   // Fetch movie details using React Query
   const {
@@ -74,11 +78,12 @@ const Movie = () => {
     try {
       const movie = await addItemToFavoriteList({
         name: movieData.title,
-        TMDB_ID: movieData.id,
+        tmdb_id: movieData.id,
         image: movieData.poster_path,
-        Type: "movie",
+        type: "movie",
       }).unwrap();
-      dispatch(addItem({ ...movie }));
+      dispatch(addFavoriteList(movie));
+      // console.log(store.getState().favoriteList); // Add this line
       toast.success("Movie added to favorites");
     } catch (err) {
       toast.error(err?.data.message || err.error);
@@ -87,22 +92,24 @@ const Movie = () => {
 
   const handleRemoveFromFavorites = async () => {
     try {
-      const remove = await removeItemFromFavoriteList({
-        TMDB_ID: movieData.id,
+      const deletedFavorite = await removeItemFromFavoriteList({
+        name: movieData.title,
+        tmdb_id: movieData.id,
+        image: movieData.poster_path,
+        type: "movie",
       }).unwrap();
-
-      dispatch(removeItem({ ...remove }));
+      dispatch(removeFavoriteList(deletedFavorite.tmdb_id));
       toast.success("Movie removed from favorites");
     } catch (err) {
-      toast.error(err?.data.message || err.error);
+      console.log(err);
     }
   };
 
   return (
     <>
-      <div class="relative  w-full  font-blinker bg-slate-950 overflow-x-hidden">
-        <div class="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
-        <div class="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
+      <div className="relative  w-full  font-blinker bg-slate-950 overflow-x-hidden">
+        <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
+        <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
 
         <ToastContainer />
 
@@ -119,7 +126,9 @@ const Movie = () => {
                   <div className="relative w-full">
                     <div className=" flex flex-col justify-start rounded-lg  font-Alber_Sans text-alabaster-50 bg-alabaster-50 bg-opacity-10 backdrop-blur-lg h-96 p-6">
                       <h1 className="poster-titletext-alabaster-50 font-Alber_Sans text-xl text-alabaster-50">
-                        <span className="text-alabaster-50 font-Alber_Sans ">Title : {"  "}</span>
+                        <span className="text-alabaster-50 font-Alber_Sans ">
+                          Title : {"  "}
+                        </span>
                         {movieData.title}
                       </h1>
                       <div className="flex space-x-2 pt-4">
@@ -162,8 +171,7 @@ const Movie = () => {
                                 >
                                   {spoken_language.name}{" "}
                                   <span className="text-medium-purple-700">
-                                    {" "}
-                                    -{" "}
+                                    {"  "}|{"  "}
                                   </span>
                                 </span>
                               )
@@ -173,7 +181,7 @@ const Movie = () => {
                           <div className="text-xl pt-3 flex flex-row text-alabaster-200">
                             Rating : {"  "}
                             <div className="mx-3 text-ebony-clay-950  text-xl bg-buttercup-500 w-fit h-fit p-1 flex justify-center  items-center border rounded-lg border-none">
-                              {percentage_text}{" "}
+                              {percentage_text}
                               <span className="pl-1">
                                 <AiFillStar />
                               </span>{" "}
@@ -181,11 +189,6 @@ const Movie = () => {
                           </div>
 
                           <div className="text-xl pt-3   flex flex-row space-x-5">
-                            {/* <h1 className="text-xl font-blinker text-alabaster-200">
-                              {" "}
-                              Companies : {"  "}
-                            </h1> */}
-
                             {movieData.production_companies.map(
                               (
                                 production_companie,
@@ -206,7 +209,7 @@ const Movie = () => {
                               className="bg-alabaster-100 text-red-700 p-2 rounded-lg"
                               onClick={handleRemoveFromFavorites}
                             >
-                              <BsHeart />
+                              <TbHeartPlus />
                             </button>
 
                             <button className="bg-ebony-clay-950 text-alabaster-50 p-2 rounded-lg">
@@ -327,7 +330,7 @@ const Movie = () => {
                     <div className="relative flex flex-row items-end w-fit mb-2">
                       <button
                         type="submit"
-                        className="text-alabaster-50 bg-alabaster-900  text-base w-fit h-fit mr-2 p-2 justify-center items-center border-none rounded-lg hover:bg-alabaster-950"
+                        className="text-alabaster-50 bg-slate-950 bg-opacity-80 duration-300 text-base w-fit h-fit mr-2 p-2 justify-center items-center border-none rounded-lg "
                       >
                         Comment
                       </button>

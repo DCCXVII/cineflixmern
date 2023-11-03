@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import backgroundImg from "../assets/BACKGROUND.jpg";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
-import { BsPersonFill } from "react-icons/bs";
+import { BsEye, BsEyeSlash, BsPersonFill } from "react-icons/bs";
 import { ImSpinner4 } from "react-icons/im";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
+import { useGetAllFavoritesMutation } from "../slices/favoriteListApiSlice";
+import { updateFavoriteList } from "../slices/favoriteListSlice";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -17,23 +19,27 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [favorites, { isFavsLoading }] = useGetAllFavoritesMutation();
   const [login, { isLoading }] = useLoginMutation();
   const { userInfo } = useSelector((state) => state.auth);
-
+  const { favoritelistItems } = useSelector((state) => state.favoriteList);
   useEffect(() => {
     if (userInfo) {
       navigate("/c/home");
     }
-  }, [navigate, userInfo]);
+  }, [navigate, userInfo, favoritelistItems]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
+      const favoritesList = await favorites().unwrap();
+      //console.log(favoritesList);
       dispatch(setCredentials({ ...res }));
+      dispatch(updateFavoriteList(favoritesList));
       navigate("/c/home");
     } catch (err) {
-      toast.error(err?.data.message || err.error);
+      console.log(err);
     }
   };
 
@@ -69,33 +75,28 @@ const SignIn = () => {
   return (
     <>
       {/* Background Image */}
-      <div
-        className="relative font-blinker h-screen bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${backgroundImg})`,
-        }}
-      >
+      <div className="relative  w-full  font-blinker  bg-slate-950 overflow-x-hidden">
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-ebony-clay-950 to-curious-blue-600 opacity-70"></div>
+        <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
+        <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
 
         {/* Content */}
-        <div className="flex justify-center items-center w-screen h-screen  text-white-100">
-          <div className="relative m-auto w-2/5 bg-white rounded-xl bg-ebony-clay-600 bg-opacity-70">
-            <div className="py-4 px-8 right-0 text-white text-xl border-b flex justify-start items-center ">
-              <BsPersonFill className="mr-1 text-curious-blue-600 text-3xl" />{" "}
-              Log in
-            </div>
+        <div className="flex justify-center items-center  h-screen">
+          <div className="relative m-auto w-[27rem] bg-white rounded-xl bg-opacity-70">
+            <h1 className="text-4xl font-medium text-alabaster-50 text-center mb-6 font-Alber_Sans">
+              Welcome back!
+            </h1>
             <form onSubmit={submitHandler}>
               <div className="py-4 px-8">
                 <div className="mb-4">
                   <label
-                    className="block text-gray-700 text-lg font-bold mb-2"
+                    className="block text-alabaster-50 text-lg font-medium mb-1"
                     htmlFor="email"
                   >
                     Email
                   </label>
                   <input
-                    className="appearance-none font-sans border-none rounded w-full py-2  px-3 text-ebony-clay-950"
+                    className="appearance-none font-Alber_Sans border-none rounded-lg w-full p-3 text-black-950"
                     id="email"
                     type="email"
                     placeholder="xyz@example.com"
@@ -104,13 +105,13 @@ const SignIn = () => {
                 </div>
                 <div className="mb-1 relative">
                   <label
-                    className="block text-gray-700 text-lg font-bold mb-2"
+                    className="block text-alabaster-50 text-lg font-medium mb-1"
                     htmlFor="password"
                   >
                     Password
                   </label>
                   <input
-                    className="appearance-none font-sans border-none rounded w-full py-2  px-3 text-ebony-clay-950"
+                    className="appearance-none font-Alber_Sans border-none rounded-lg w-full p-3 text-black-950"
                     id="password"
                     type={showPassword ? "text" : "password"} // Show/hide password based on state
                     placeholder="Password"
@@ -120,23 +121,23 @@ const SignIn = () => {
                   {/* Show/hide password toggle button */}
                   <button
                     type="button"
-                    className="absolute text-ebony-clay-950 text-xl inset-y-0 right-0 pt-9 pr-2 flex items-center focus:outline-none"
+                    className="absolute text-ebony-clay-950 text-xl inset-y-0 right-0 pt-9 pr-3 flex items-center focus:outline-none"
                     onClick={togglePasswordVisibility}
                   >
                     {showPassword ? (
-                      <AiOutlineEyeInvisible className="text-gray-500" />
+                      <BsEyeSlash className="text-alabaster-950" />
                     ) : (
-                      <AiOutlineEye className="text-gray-500" />
+                      <BsEye className="text-alabaster-950" />
                     )}
                   </button>
                 </div>
-                <p className="text-base underline text-curious-blue-300">
+                <p className="text-base text-alabaster-400 my-2 hover:text-alabaster-100">
                   <Link to="/reset-password">Forget your password?</Link>
                 </p>
 
                 <div className="flex items-center justify-between mt-8">
                   <button
-                    className="bg-curious-blue-700  hover:bg-curious-blue-600  text-white-100 py-2 px-4 rounded-xl"
+                    className="bg-slate-900  hover:bg-opacity-40 duration-300  text-white-100 p-2 rounded-lg w-full"
                     type="submit"
                   >
                     Sign In
@@ -145,10 +146,10 @@ const SignIn = () => {
               </div>
             </form>
 
-            <div className="py-3 px-8 border-t ">
-              <p className="text-base text-white-50">
+            <div className="py-3 px-8 items-center justify-center text-center ">
+              <p className="text-base text-alabaster-400">
                 don't you have an acount?{" "}
-                <span className="underline text-curious-blue-300">
+                <span className="underline text-slate-900 ">
                   <Link to="/register">Create one </Link>
                 </span>
               </p>
@@ -158,8 +159,8 @@ const SignIn = () => {
         <ToastContainer />
 
         {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-ebony-clay-600 bg-opacity-40">
-            <ImSpinner4 className="animate-spin text-4xl text-curious-blue-600" />
+          <div className="absolute inset-0 flex items-center justify-center bg-alabaster-50 bg-opacity-40">
+            <ImSpinner4 className="animate-spin text-4xl text-slate-950" />
           </div>
         )}
       </div>

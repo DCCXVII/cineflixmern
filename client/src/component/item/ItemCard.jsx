@@ -4,6 +4,7 @@ import { AiFillStar } from "react-icons/ai";
 const TMDB_BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const ItemCard = ({ item, itemType }) => {
+  
   const renderRating = () => {
     if (itemType === "actor") {
       return item.vote_average ? (
@@ -13,11 +14,11 @@ const ItemCard = ({ item, itemType }) => {
       );
     } else {
       return (
-        <div className="item-rating z-20 absolute top-2 left-2 text-ebony-clay-950 bg-buttercup-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg">
+        <div className="item-rating z-20 absolute top-2 left-2 text-alabaster-50 bg-slate-900  flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg">
           <div className="w-fit inline-flex pl-1 text-base rounded-sm">
-            {item.vote_average}
+          {item.vote_average.toFixed(1)}
           </div>
-          <AiFillStar className="text-ebony-clay-950 text-base mx-1" />
+          <AiFillStar className="text-buttercup-600 text-base mx-1" />
         </div>
       );
     }

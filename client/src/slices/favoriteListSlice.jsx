@@ -1,32 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
+const favoritelistItemsFromStorage = localStorage.getItem("favoritelistItems");
 
 const initialState = {
-  favoritelistItems: localStorage.getItem("favoritelistItems")
-    ? JSON.parse(localStorage.getItem("favoritelistItems"))
+  favoritelistItems: favoritelistItemsFromStorage
+    ? Array.isArray(JSON.parse(favoritelistItemsFromStorage))
+      ? JSON.parse(favoritelistItemsFromStorage)
+      : []
     : [],
 };
-
 const favoriteListSlice = createSlice({
   name: "favoriteList",
   initialState,
   reducers: {
-    addItem: (state, action) => {
-      let buildFavoriteList = {
-        ...action.payload.favorite.FavoritelistItems[0],
-      };
-
-      state.favoritelistItems?.push(buildFavoriteList);
+    addFavoriteList: (state, action) => {
+      state.favoritelistItems.push(action.payload);
       localStorage.setItem(
         "favoritelistItems",
         JSON.stringify(state.favoritelistItems)
       );
     },
-    removeItem: (state, action) => {
-      let filtredItems = state.favoritelistItems = state.favoritelistItems?.filter(
-        (item) => item?.TMDB_ID !== action.payload?.TMDB_ID
+    removeFavoriteList: (state, action) => {
+      state.favoritelistItems = state.favoritelistItems.filter(
+        (item) => item.tmdb_id !== action.payload
       );
-
-      state.favoritelistItems = filtredItems;
+      localStorage.setItem(
+        "favoritelistItems",
+        JSON.stringify(state.favoritelistItems)
+      );
+    },
+    updateFavoriteList: (state, action) => {
+      state.favoritelistItems = action.payload;
+      localStorage.setItem(
+        "favoritelistItems",
+        JSON.stringify(state.favoritelistItems)
+      );
+    },
+    eareseFavoriteList: (state) => {
+      state.favoritelistItems = [];
       localStorage.setItem(
         "favoritelistItems",
         JSON.stringify(state.favoritelistItems)
@@ -35,12 +45,7 @@ const favoriteListSlice = createSlice({
   },
 });
 
-export const {
-  getFavoriteListRequest,
-  getFavoriteListSuccess,
-  getFavoriteListFailure,
-  addItem,
-  removeItemFromFavoriteList,
-} = favoriteListSlice.actions;
+export const { addFavoriteList,removeFavoriteList, updateFavoriteList, eareseFavoriteList } =
+  favoriteListSlice.actions;
 
 export default favoriteListSlice.reducer;

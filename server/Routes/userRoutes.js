@@ -1,9 +1,8 @@
 const router = require("express").Router();
 const {
-  addItemToFavorite,
-  removeItemFromFavorite,
-  getAllItemsInfavorite,
-  getfavoriteItemByName,
+  getFavorites,
+  addFavorite,
+  deleteFavorite,
 } = require("../Controllers/FavoriteListController");
 const {
   Signup,
@@ -27,10 +26,9 @@ router.post("/logout", Logout);
 router.get("/profile", protect, getUserProfile);
 router.put("/profile", protect, updateUserProfile);
 
-router.get("/favoritelist", protect, getAllItemsInfavorite);
-router.post("/favoritelist/add", protect, addItemToFavorite); // Use userVerification middleware here
-router.post("/favoritelist/remove", protect, removeItemFromFavorite);
-router.get("/favoritelist/item", protect, getfavoriteItemByName);
+router.get("/favorite-list", protect, getFavorites);
+router.post("/favorite-list/add", protect, addFavorite);
+router.post("/favorite-list/remove", protect, deleteFavorite);
 
 router.post("/comments", protect, createComment);
 router.get("/comments/:TMDB_ID", getComments);
