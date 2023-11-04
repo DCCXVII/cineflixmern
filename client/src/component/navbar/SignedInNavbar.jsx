@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import logo from "../../assets/logo160.png";
 import { PiTelevisionSimple } from "react-icons/pi";
 import { BsFillPersonFill, BsStarFill } from "react-icons/bs";
-import { MdFavorite, MdLogout } from "react-icons/md";
+import { MdLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
-import landscape2 from "../../assets/landscape2.jpg";
 import { GoHome } from "react-icons/go";
 import { RiMovie2Line } from "react-icons/ri";
-import { useSelector } from "react-redux";
-import { BiRightArrowAlt } from "react-icons/bi";
 import "../../Styles/CostumScrollBar.css";
 
 const SignedInNavbar = ({ userName, loginOut, favoriteList }) => {
@@ -61,26 +58,25 @@ const SignedInNavbar = ({ userName, loginOut, favoriteList }) => {
                 Favorites
                 {isListHovered && (
                   <div className="absolute top-14 right-36 bg-slate-950 bg-opacity-80 text-curious-blue-100 rounded-lg w-96 ">
-                    <div className="max-h-72 min-h-[8rem] overflow-y-auto m-2 custom-scroll-bar">
-                      <ul className="py-1 custom-scroll-bar">
+                    <div className="max-h-72 min-h-[8rem] overflow-y-auto my-1 custom-scroll-bar">
+                      <ul className="py-2 custom-scroll-bar ">
                         {[...favoriteList]
                           .reverse()
-                          .slice(0, 4)
                           .map((favorite) => (
                             <li
                               key={favorite.id}
-                              className="hover:bg-ebony-clay-600"
+                              className="hover:bg-ebony-clay-600 "
                             >
                               <div className="flex items-center p-2">
                                 <Link
-                                  to={`/c/${favorite.type}/${favorite.id}`}
+                                  to={`/c/${favorite.type}/${favorite.tmdb_id}`}
                                   className="flex justify-between space-x-2 items-center"
                                 >
                                   <img
                                     src={`${URL_BACKDROP}${favorite.image}`}
-                                    className="w-24 h-16 rounded-lg"
+                                    className="w-12 h-16 rounded-lg"
                                   />
-                                  <div className="ml-2 grid grid-cols-1 ">
+                                  <div className="ml-2 felx flex-col justify-start ">
                                     <h1 className="title text-alabaster-50 font-Alber_Sans text-base text-left">
                                       {favorite.name}
                                     </h1>
@@ -93,20 +89,17 @@ const SignedInNavbar = ({ userName, loginOut, favoriteList }) => {
                                   </div>
                                 </Link>
                               </div>
+                              <div className="bg-alabaster-50 bg-opacity-10 h-[1px] w-full"></div>
+
                             </li>
                           ))}
-                              {favoriteList.length === 0 && <h1 className="text-center justify-items-center text-2xl">Your list is empty</h1>}
-
+                        {favoriteList.length === 0 && (
+                          <h1 className="text-center justify-items-center text-2xl">
+                            Your list is empty
+                          </h1>
+                        )}
                       </ul>
                     </div>
-                    <Link
-                      to="home"
-                      className="flex justify-center items-center"
-                    >
-                      <h1 className="flex flex-row items-center text-center text-sm text-alabaster-50 hover:text-alabaster-300 rounded-lg cursor-pointer m-2 font-Alber_Sans duration-75">
-                        More Favs <BiRightArrowAlt className="ml-1 text-lg" />
-                      </h1>
-                    </Link>
                   </div>
                 )}
               </div>
@@ -130,6 +123,8 @@ const SignedInNavbar = ({ userName, loginOut, favoriteList }) => {
                           </button>
                         </Link>
                       </li>
+                      <div className="bg-alabaster-50 bg-opacity-10 h-[1px] w-full"></div>
+
                       <li className="hover:bg-ebony-clay-600 ">
                         <button
                           className="flex items-center p-2 text-alabaster-50"

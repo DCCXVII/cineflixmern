@@ -55,7 +55,16 @@ export const fetchMovieDetails = async (movieId) => {
         append_to_response: "videos",
       },
     });
-    return response.data;
+    const movieData = response.data;
+
+    // Extract the trailer key from the videos array
+    const trailer = movieData.videos.results.find(
+      (video) => video.type === "Trailer"
+    );
+    const trailerKey = trailer ? trailer.key : null;
+
+    // Return the movie data and trailer key
+    return { ...movieData, trailerKey };
   } catch (error) {
     console.error("Failed to fetch movie details:", error);
     throw error;
@@ -129,9 +138,21 @@ export const fetchTrendingSeries = async () => {
 
 export const fetchSerieDetails = async (serieId) => {
   try {
-    const response = await tmdbApi.get(`/tv/${serieId}`, {});
+    const response = await tmdbApi.get(`/tv/${serieId}`, {
+      params: {
+        append_to_response: "videos",
+      },
+    });
+    const serieData = response.data;
 
-    return response.data;
+    // Extract the trailer key from the videos array
+    const trailer = serieData.videos.results.find(
+      (video) => video.type === "Trailer"
+    );
+    const trailerKey = trailer ? trailer.key : null;
+
+    // Return the serie data and trailer key
+    return { ...serieData, trailerKey };
   } catch (error) {
     console.error("Failed to fetch TV series details:", error);
     throw error;

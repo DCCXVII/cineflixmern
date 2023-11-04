@@ -1,43 +1,65 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const CommentsItemsFromStorage = localStorage.getItem("commentsItems");
+
 const initialState = {
-  comments: [],
-  loading: false,
-  error: null,
+  CommentsItems: CommentsItemsFromStorage
+    ? Array.isArray(JSON.parse(CommentsItemsFromStorage))
+      ? JSON.parse(CommentsItemsFromStorage)
+      : []
+    : [],
 };
 
 const commentSlice = createSlice({
-  name: "comment",
+  name: "comments",
   initialState,
   reducers: {
-    getCommentsRequest: (state) => {
-      state.loading = true;
-    },
-    getCommentsSuccess: (state, action) => {
-      state.loading = false;
-      state.comments = action.payload;
-    },
-    getCommentsFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    addComment: (state, action) => {
-      state.comments.push(action.payload);
+    addingComment: (state, action) => {
+      state.CommentsItems.push(action.payload);
+      localStorage.setItem(
+        "CommentsItems",
+        JSON.stringify(state.CommentsItems)
+      );
     },
     removeComment: (state, action) => {
-      state.comments = state.comments.filter(
-        (comment) => comment._id !== action.payload
+      state.CommentsItems = state.CommentsItems.filter(
+        (item) => item.tmdb_id !== action.payload
+      );
+      localStorage.setItem(
+        "CommentsItems",
+        JSON.stringify(state.CommentsItems)
+      );
+    },
+    updateComment: (state, action) => {
+      state.CommentsItems = action.payload;
+      localStorage.setItem(
+        "CommentsItems",
+        JSON.stringify(state.CommentsItems)
+      );
+    },
+    getComments: (state, action) => {
+      state.CommentsItems = action.payload;
+      localStorage.setItem(
+        "CommentsItems",
+        JSON.stringify(state.CommentsItems)
+      );
+    },
+    eareseComment: (state) => {
+      state.CommentsItems = [];
+      localStorage.setItem(
+        "CommentsItems",
+        JSON.stringify(state.CommentsItems)
       );
     },
   },
 });
 
 export const {
-  getCommentsRequest,
-  getCommentsSuccess,
-  getCommentsFailure,
-  addComment,
+  addingComment,
   removeComment,
+  updateComment,
+  eareseComment,
+  getComments,
 } = commentSlice.actions;
 
 export default commentSlice.reducer;

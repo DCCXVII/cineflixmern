@@ -43,32 +43,6 @@ const SignIn = () => {
     }
   };
 
-  // old  Login function
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const { data } = await axios.post(
-  //       "http://localhost:4000/api/login",
-  //       { email, password },
-  //       { withCredentials: true }
-  //     );
-  //     const { success, message , user} = data;
-  //     const UserId = user._id;
-  //     if (success) {
-  //       handleSuccess(message);
-  //       setTimeout(() => {
-  //         navigate(`/c/home`);
-  //       }, 1000);
-  //     } else {
-  //       handleError(message);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   // setEmail("");
-  //   // setPassword("");
-  // };
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };

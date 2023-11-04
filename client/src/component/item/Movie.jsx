@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { BsFillPersonFill, BsHeart } from "react-icons/bs";
-import { TbHeartPlus } from "react-icons/tb";
+import { BsFillPersonFill, BsHeart, BsHeartFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 import { useQuery } from "react-query";
 import {
@@ -16,18 +15,28 @@ import "react-toastify/dist/ReactToastify.css";
 import SwiperA from "../Slider/SwiperA";
 import Comment from "./Comment";
 import { BiSolidVideos } from "react-icons/bi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addFavoriteList,
   removeFavoriteList,
 } from "../../slices/favoriteListSlice";
+import { addingComment } from "../../slices/commentSlice";
 import {
   useAddToFavoriteListMutation,
   useRemoveFavoriteListMutation,
 } from "../../slices/favoriteListApiSlice";
+
+import { useAddCommentMutation } from "../../slices/commentApiSlice";
+import Popup from "./Popup";
+
+
 const Movie = () => {
+  const { favoritelistItems } = useSelector((state) => state.favoriteList);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [comment, setComment] = useState("");
+
   const { movieId } = useParams();
-  
+
   const dispatch = useDispatch();
 
   const [addItemToFavoriteList, { isAddLoading }] =
@@ -35,6 +44,16 @@ const Movie = () => {
 
   const [removeItemFromFavoriteList, { isRemoveLoading }] =
     useRemoveFavoriteListMutation();
+
+  const [addComment, { data: newComment, isLoading }] = useAddCommentMutation();
+
+  const handleButtonClick = () => {
+    setIsPopupOpen(true);
+  };
+
+  const handlePopupClose = () => {
+    setIsPopupOpen(false);
+  };
 
   // Fetch movie details using React Query
   const {
@@ -73,8 +92,6 @@ const Movie = () => {
 
   const TMDB_BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
-  // Define the function to add item to watchlist
-
   const handleAddToFavorites = async () => {
     try {
       const movie = await addItemToFavoriteList({
@@ -84,7 +101,6 @@ const Movie = () => {
         type: "movie",
       }).unwrap();
       dispatch(addFavoriteList(movie));
-      // console.log(store.getState().favoriteList); // Add this line
       toast.success("Movie added to favorites");
     } catch (err) {
       toast.error(err?.data.message || err.error);
@@ -106,14 +122,32 @@ const Movie = () => {
     }
   };
 
+  const isInFavorites = favoritelistItems.some(
+    (item) => String(item.tmdb_id) === String(movieData.id)
+  );
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const newComment = await addComment({
+        content: comment,
+        tmdb_id: movieData.id,
+        type: "movie",
+      }).unwrap();
+      setComment("");
+      dispatch(addingComment(newComment));
+      toast.success("Comment added");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
   return (
     <>
       <div className="relative  w-full  font-Alber_Sans bg-slate-950 overflow-x-hidden">
         <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
         <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
-
-        <ToastContainer />
-
         <table className="w-full mt-20 ">
           <tbody>
             <tr className="w-full">
@@ -207,14 +241,26 @@ const Movie = () => {
                             </div>
 
                             <div className="absolute right-5 top-5 flex flex-col space-y-2">
-                              <button
-                                className="bg-alabaster-100 text-red-700 p-2 rounded-lg"
-                                onClick={handleRemoveFromFavorites}
-                              >
-                                <BsHeart />
-                              </button>
+                              {isInFavorites ? (
+                                <button
+                                  className="bg-alabaster-100 text-red-700 p-2 rounded-lg"
+                                  onClick={handleRemoveFromFavorites}
+                                >
+                                  <BsHeartFill />
+                                </button>
+                              ) : (
+                                <button
+                                  className="bg-alabaster-100 text-red-700 p-2 rounded-lg"
+                                  onClick={handleAddToFavorites}
+                                >
+                                  <BsHeart />
+                                </button>
+                              )}
 
-                              <button className="bg-ebony-clay-950 text-alabaster-50 p-2 rounded-lg">
+                              <button
+                                className="bg-ebony-clay-950 text-alabaster-50 p-2 rounded-lg"
+                                onClick={handleButtonClick}
+                              >
                                 <BiSolidVideos />
                               </button>
                             </div>
@@ -304,32 +350,15 @@ const Movie = () => {
                   <h1 className="text-alabaster-50  text-xl font-bold pb-3">
                     Comments
                   </h1>
-                  <div className="overflow-y-scroll pr-2 custom-scroll-bar h-fit">
-                    <Comment
-                      commentaire={
-                        "                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam quia soluta reprehenderit commodi numquam nam quam incidunt nulla consequuntur voluptatem, quaerat unde dicta ipsa culpa, cupiditate asperiores inventore recusandae voluptas.                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit maxime vitae porro facere? Molestiae deleniti quas voluptas accusantium praesentium excepturi ab, assumenda, quod eligendi inventore repellendus placeat quasi qui at."
-                      }
-                      Username={`User num1`}
-                      DateAdded={`2023 - 02 -23`}
-                    />
-                    <div className="bg-alabaster-50 bg-opacity-10 h-[1px] w-full"></div>
-                    <Comment
-                      commentaire={
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit maxime vitae porro facere? Molestiae deleniti quas voluptas accusantium praesentium excepturi ab, assumenda, quod eligendi inventore repellendus placeat quasi qui at."
-                      }
-                      Username={`User num1`}
-                      DateAdded={`2023 - 02 -23`}
-                    />
-                  </div>
 
                   <div className="relative w-full min-h-44 flex flex-col text-base text-alabaster-50  bg-opacity-30 p-2 rounded-lg mt-7 mb-3 ">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       <div className="relative w-full bg-transparent rounded-lg pb-3">
                         <textarea
                           className="w-full h-24 min-h-20 p-3 rounded-lg text-ebony-clay-950 overflow-y-auto custom-scroll-bar text-lg"
                           placeholder="Add a comment"
-                          // value={comment}
-                          // onChange={(e) => setComment(e.target.value)}
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
                         />
                       </div>
 
@@ -350,12 +379,30 @@ const Movie = () => {
                       </div>
                     </form>
                   </div>
+
+                  <div className="overflow-y-scroll pr-2 custom-scroll-bar h-fit">
+                    {newComment && (
+                      <Comment
+                        commentaire={newComment.content}
+                        Username={newComment.name}
+                        DateAdded={newComment.createdAt}
+                      />
+                    )}
+                  </div>
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
+        <ToastContainer />
       </div>
+
+      <Popup
+        isOpen={isPopupOpen}
+        handleClose={handlePopupClose}
+        videoKey={movieData?.videos?.results?.[0]?.key}
+        site={movieData?.videos?.results?.[0]?.site?.toLowerCase()}
+      />
     </>
   );
 };

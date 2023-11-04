@@ -1,26 +1,34 @@
 import { apiSlice } from "./apiSlice";
 
-const COMMENT_URL = "/api/user/comments";
+const COMMENT_URL = "/api/user/comment";
 
 export const commentApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getComments: builder.query({
-      query: (TMDB_ID) => ({
-        url: `${COMMENT_URL}?TMDB_ID=${TMDB_ID}`,
+      query: () => ({
+        url: `${COMMENT_URL}`,
         method: "GET",
       }),
     }),
     addComment: builder.mutation({
       query: (data) => ({
-        url: `${COMMENT_URL}`,
+        url: `${COMMENT_URL}/add`,
         method: "POST",
         body: data,
       }),
     }),
     removeComment: builder.mutation({
       query: (data) => ({
-        url: `${COMMENT_URL}/${data.commentId}`,
-        method: "DELETE",
+        url: `${COMMENT_URL}/remove`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    updateComment: builder.mutation({
+      query: (data) => ({
+        url: `${COMMENT_URL}/update`,
+        method: "POST",
+        body: data,
       }),
     }),
   }),
@@ -30,4 +38,5 @@ export const {
   useGetCommentsQuery,
   useAddCommentMutation,
   useRemoveCommentMutation,
+  useUpdateCommentMutation,
 } = commentApiSlice;

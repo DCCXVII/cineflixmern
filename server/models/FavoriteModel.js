@@ -4,7 +4,7 @@ const FavoriteSchema = new mongoose.Schema(
   {
     userId: {
       type: String,
-      required: [true, "The item name is required"],
+      required: [true, "The item id is required"],
     },
     name: {
       type: String,
@@ -16,7 +16,7 @@ const FavoriteSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["movie", "series", "tv_episode"],
+      enum: ["movie", "serie", "tv_episode"],
       required: [true, "The type is required"],
     },
     image: {

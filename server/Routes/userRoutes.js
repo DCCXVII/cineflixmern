@@ -30,9 +30,9 @@ router.get("/favorite-list", protect, getFavorites);
 router.post("/favorite-list/add", protect, addFavorite);
 router.post("/favorite-list/remove", protect, deleteFavorite);
 
-router.post("/comments", protect, createComment);
-router.get("/comments/:TMDB_ID", getComments);
-router.put("/comments/:id", protect, updateComment);
-router.delete("/comments/:id", protect, deleteComment);
+router.get("/comment/", getComments);
+router.post("/comment/add", protect, createComment);
+router.put("/comment/update", protect, updateComment);
+router.post("/comment/remove", protect, deleteComment);
 
 module.exports = router;

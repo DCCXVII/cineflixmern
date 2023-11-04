@@ -1,6 +1,7 @@
 const FavoriteModel = require("../models/FavoriteModel");
+const asyncHandler = require("express-async-handler");
 
-const getFavorites = async (req, res) => {
+const getFavorites = asyncHandler(async (req, res) => {
   try {
     const favorites = await FavoriteModel.find({ userId: req.user._id });
     // res.status(200).json(favorites);
@@ -15,9 +16,9 @@ const getFavorites = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+});
 
-const addFavorite = async (req, res) => {
+const addFavorite = asyncHandler(async (req, res) => {
   const { tmdb_id, name, type, image } = req.body;
   const { _id: userId } = req.user;
 
@@ -40,8 +41,8 @@ const addFavorite = async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
-};
-const deleteFavorite = async (req, res) => {
+});
+const deleteFavorite = asyncHandler(async (req, res) => {
   const userId = req.user._id;
   const tmdb_id = req.body.tmdb_id;
   try {
@@ -53,7 +54,7 @@ const deleteFavorite = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+});
 
 module.exports = {
   getFavorites,

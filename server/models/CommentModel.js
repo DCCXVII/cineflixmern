@@ -2,9 +2,15 @@ const mongoose = require("mongoose");
 
 const CommentSchema = new mongoose.Schema(
   {
-    userId: String,
-    username: String,
-    TMDB_ID: {
+    userId: {
+      type: String,
+      required: [true, "The user id is required"],
+    },
+    name: {
+      type: String,
+      required: [true, "The user name is required"],
+    },
+    tmdb_id: {
       type: String,
       required: [true, "The id is required"],
     },
@@ -12,7 +18,7 @@ const CommentSchema = new mongoose.Schema(
       type: String,
       required: [true, "The content is required"],
     },
-    Type: {
+    type: {
       type: String,
       enum: ["movie", "series", "tv_episode"],
       required: [true, "The type is required"],
